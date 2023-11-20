@@ -348,8 +348,8 @@ class MorpheusApi():
             'Content-Type': 'application/octet-stream'
         }
 
-        orig_headers = self.connection.headers
-        self.connection.headers = headers
+        # orig_headers = self.connection.headers
+        # self.connection.headers = headers
 
         payload = mf.dict_keys_to_camel_case(
             api_params
@@ -369,21 +369,25 @@ class MorpheusApi():
             del payload['url']
             with open(payload['file'], 'rb') as vi_file:
                 file_name = vi_file.name
-                b64_file = base64.b64encode(vi_file.read())
-                b64_ascii = binascii.a2b_base64(b64_file)
+                # b64_file = base64.b64encode(vi_file.read())
+                # b64_ascii = binascii.a2b_base64(b64_file)
 
-            body = 'data:application/octet-stream;name={0};base64,{1}'.format(file_name, b64_ascii)
+            # body = 'data:application/octet-stream;name={0};base64,{1}'.format(file_name, b64_file.decode('ascii'))
+                body = vi_file.read()
 
+            del payload['file']
             url_params = self._url_params(payload)
             path = self._build_url(path, url_params)
 
             response = self.connection.send_request(
-                path=path,
                 data=body,
+                path=path,
+                headers=headers,
                 method='POST'
             )
 
-        self.connection.headers = orig_headers
+        # self.connection.headers = orig_headers
+        # return {'body': body, 'headers': headers, 'path': path}
         return self._return_reponse_key(response, '')
 
     def unlock_instance(self, instance_id: int):

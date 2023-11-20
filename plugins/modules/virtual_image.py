@@ -314,6 +314,7 @@ def create_update_vi(module: AnsibleModule, morpheus_api: MorpheusApi) -> dict:
         dict: Returns a result dictionary
     """
     vi_response = {}
+    result = {}
     upload_response = False
     diffs = []
 
@@ -377,14 +378,15 @@ def create_update_vi(module: AnsibleModule, morpheus_api: MorpheusApi) -> dict:
         upload_action = {
             'False': partial(morpheus_api.upload_virtual_image_file, api_params=file_params),
             'True': partial(parse_check_mode, state=module.params['state'], file_params=file_params, virtual_images=virtual_image)
-        }.get(module.check_mode)
+        }.get(str(module.check_mode))
         exec_upload_action = upload_action()
+        result['b64data'] = exec_upload_action
         upload_response = mf.success_response(exec_upload_action)[0]
 
-    result = {
+    result.update({
         'changed': vi_changed is True or upload_response is True,
         'virtual_image': vi_response
-    }
+    })
 
     if module._diff:
         result['diff'] = diffs

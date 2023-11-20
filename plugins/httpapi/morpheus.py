@@ -65,7 +65,7 @@ class HttpApi(HttpApiBase):
 
         # Handle 401 errors
         if exc.code == 401:
-            raise AnsibleAuthenticationFailure('Authentication Failure')
+            raise AnsibleAuthenticationFailure(exc.reason)
 
         return False
 
@@ -112,7 +112,10 @@ class HttpApi(HttpApiBase):
         method = kwargs.pop('method', 'GET')
         headers = kwargs.pop('headers', self.headers)
 
-        if headers['Content-Type'] != 'application/x-www-form-urlencoded':
+        if 'Authorization' not in headers and self.access_token is not None:
+            headers['Authorization'] = 'Bearer {0}'.format(self.access_token)
+
+        if headers['Content-Type'] not in ['application/x-www-form-urlencoded', 'application/octet-stream']:
             data = json.dumps(data) if data is not None else None
 
         try:
