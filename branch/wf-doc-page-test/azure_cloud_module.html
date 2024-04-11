@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="./">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta content="2.9.0" name="antsibull-docs" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>morpheus.core.azure_cloud module – Manage an Azure Cloud &mdash; Morpheus.Core Collection  documentation</title>
+      <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=5707b69d" />
+      <link rel="stylesheet" type="text/css" href="_static/css/ansible.css?v=c5b67dd2" />
+      <link rel="stylesheet" type="text/css" href="_static/antsibull-minimal.css" />
+      <link rel="stylesheet" type="text/css" href="_static/css/rtd-ethical-ads.css?v=289b023e" />
+
+  
+    <link rel="shortcut icon" href="_static/images/Ansible-Mark-RGB_Black.png"/>
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script src="_static/jquery.js?v=5d32c60e"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+        <script src="_static/documentation_options.js?v=7f41d439"></script>
+        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="morpheus.core.cloud_datastore module – Configure Cloud Datastores" href="cloud_datastore_module.html" />
+    <link rel="prev" title="morpheus.core.appliance_settings module – Configure Morpheus Appliance Settings" href="appliance_settings_module.html" /><!-- extra head elements for Ansible beyond RTD Sphinx Theme -->
+
+
+
+
+</head>
+
+<body class="wy-body-for-nav"><!-- extra body elements for Ansible beyond RTD Sphinx Theme -->
+
+<div class="DocSite-globalNav ansibleNav">
+  <ul>
+    <li><a href="https://www.ansible.com/blog" target="_blank">Blog</a></li>
+    <li><a href="https://forum.ansible.com/" target="_blank">Ansible community forum</a></li>
+    <li><a href="https://docs.ansible.com/" target="_blank">Documentation</a></li>
+  </ul>
+</div>
+
+<a class="DocSite-nav" href="https://McGlovin1337.github.io/ansible-collection-morpheus-core/branch/main/" style="padding-bottom: 30px;">
+
+  <img class="DocSiteNav-logo"
+    src="_static/images/Ansible-Mark-RGB_White.png"
+    alt="Ansible Logo">
+  <div class="DocSiteNav-title">Morpheus.Core Collection Docs</div>
+</a>
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="index.html" class="icon icon-home">
+            Morpheus.Core Collection
+          </a><!--- Based on https://github.com/rtfd/sphinx_rtd_theme/pull/438/files -->
+
+<div class="version">
+  
+    
+  
+</div>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <label class="sr-only" for="q">Search docs:</label>
+    <input type="text" class="st-default-search-input" id="q" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+  
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="appliance_facts_module.html">morpheus.core.appliance_facts module – Gather Morpheus Appliance Facts</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appliance_maintenance_mode_module.html">morpheus.core.appliance_maintenance_mode module – Toggle Maintenance Mode of the target Morpheus Appliance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="appliance_settings_module.html">morpheus.core.appliance_settings module – Configure Morpheus Appliance Settings</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">morpheus.core.azure_cloud module – Manage an Azure Cloud</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#synopsis">Synopsis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#parameters">Parameters</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#attributes">Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#examples">Examples</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#return-values">Return Values</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#authors">Authors</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#collection-links">Collection links</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_datastore_module.html">morpheus.core.cloud_datastore module – Configure Cloud Datastores</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_datastore_info_module.html">morpheus.core.cloud_datastore_info module – Datastore information for a specified cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_info_module.html">morpheus.core.cloud_info module – Retrieves Cloud Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cloud_type_info_module.html">morpheus.core.cloud_type_info module – Return available Cloud types</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cypher_module.html">morpheus.core.cypher module – Manage items stored in Cypher</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cypher_info_module.html">morpheus.core.cypher_info module – Return Cypher Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group_module.html">morpheus.core.group module – Manage Groups</a></li>
+<li class="toctree-l1"><a class="reference internal" href="group_info_module.html">morpheus.core.group_info module – Retrieves Group Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instance_module.html">morpheus.core.instance module – Basic Management of Morpheus Instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instance_info_module.html">morpheus.core.instance_info module – Gather information about instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instance_snapshot_module.html">morpheus.core.instance_snapshot module – Manage Instance Snapshots</a></li>
+<li class="toctree-l1"><a class="reference internal" href="instance_snapshot_info_module.html">morpheus.core.instance_snapshot_info module – Gather Snapshot information for instances</a></li>
+<li class="toctree-l1"><a class="reference internal" href="integration_info_module.html">morpheus.core.integration_info module – Retrieves Integration Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_pair_module.html">morpheus.core.key_pair module – Create and Remove Key Pairs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="key_pair_info_module.html">morpheus.core.key_pair_info module – Gather Key Pair Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="role_info_module.html">morpheus.core.role_info module – Retrieves Role Information</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssl_certificate_module.html">morpheus.core.ssl_certificate module – Manage SSL Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ssl_certificate_info_module.html">morpheus.core.ssl_certificate_info module – Gather information about SSL Certificates</a></li>
+<li class="toctree-l1"><a class="reference internal" href="standard_cloud_module.html">morpheus.core.standard_cloud module – Manage a Standard Morpheus Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tenant_module.html">morpheus.core.tenant module – Manage Tenants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="tenant_info_module.html">morpheus.core.tenant_info module – Retrieves Tenant Info</a></li>
+<li class="toctree-l1"><a class="reference internal" href="vcenter_cloud_module.html">morpheus.core.vcenter_cloud module – Manage a VMware VCenter Cloud</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual_image_module.html">morpheus.core.virtual_image module – Manage Morpheus Virtual Images</a></li>
+<li class="toctree-l1"><a class="reference internal" href="virtual_image_info_module.html">morpheus.core.virtual_image_info module – Gather Virtual Image information</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="morpheus_httpapi.html">morpheus.core.morpheus httpapi – Httpapi Plugin for Morpheus</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="morpheus_inventory_inventory.html">morpheus.core.morpheus_inventory inventory – Returns Ansible inventory from Morpheus</a></li>
+</ul>
+<!-- extra nav elements for Ansible beyond RTD Sphinx Theme -->
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Morpheus.Core Collection</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">morpheus.core.azure_cloud module – Manage an Azure Cloud</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+
+  
+           <div itemprop="articleBody">
+             
+  <span class="target" id="ansible-collections-morpheus-core-azure-cloud-module"></span><section id="morpheus-core-azure-cloud-module-manage-an-azure-cloud">
+<h1>morpheus.core.azure_cloud module – Manage an Azure Cloud<a class="headerlink" href="#morpheus-core-azure-cloud-module-manage-an-azure-cloud" title="Link to this heading"></a></h1>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>This module is part of the <a class="reference external" href="https://galaxy.ansible.com/ui/repo/published/morpheus/core/">morpheus.core collection</a> (version 0.7.0).</p>
+<p>It is not included in <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code>.
+To check whether it is installed, run <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">list</span></code>.</p>
+<p>To install it, use: <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">install</span> <span class="pre">morpheus.core</span></code>.</p>
+<p>To use it in a playbook, specify: <code class="code docutils literal notranslate"><span class="pre">morpheus.core.azure_cloud</span></code>.</p>
+</div>
+<p class="ansible-version-added">New in morpheus.core 0.7.0</p>
+<nav class="contents local" id="contents">
+<ul class="simple">
+<li><p><a class="reference internal" href="#synopsis" id="id1">Synopsis</a></p></li>
+<li><p><a class="reference internal" href="#parameters" id="id2">Parameters</a></p></li>
+<li><p><a class="reference internal" href="#attributes" id="id3">Attributes</a></p></li>
+<li><p><a class="reference internal" href="#examples" id="id4">Examples</a></p></li>
+<li><p><a class="reference internal" href="#return-values" id="id5">Return Values</a></p></li>
+</ul>
+</nav>
+<section id="synopsis">
+<h2><a class="toc-backref" href="#id1" role="doc-backlink">Synopsis</a><a class="headerlink" href="#synopsis" title="Link to this heading"></a></h2>
+<ul class="simple">
+<li><p>Manage Azure Clouds.</p></li>
+</ul>
+</section>
+<section id="parameters">
+<h2><a class="toc-backref" href="#id2" role="doc-backlink">Parameters</a><a class="headerlink" href="#parameters" title="Link to this heading"></a></h2>
+<table class="longtable ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Comments</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-account_id"></div>
+<div class="ansibleOptionAnchor" id="parameter-tenant_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-tenant-id"><span id="ansible-collections-morpheus-core-azure-cloud-module-parameter-account-id"></span><strong>account_id</strong></p>
+<a class="ansibleOptionLink" href="#parameter-account_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: tenant_id</span></p>
+<p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Set the tenant for which Cloud is assigned to.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-account_type"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-account-type"><strong>account_type</strong></p>
+<a class="ansibleOptionLink" href="#parameter-account_type" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>The Azure Account Type.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;csp&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;ea&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;standard&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-agent_mode"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-agent-mode"><strong>agent_mode</strong></p>
+<a class="ansibleOptionLink" href="#parameter-agent_mode" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Agent Install Mode.</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">cloudinit</span></code> and <code class="ansible-value docutils literal notranslate"><span class="pre">unattend</span></code> are the same.</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">guestexec</span></code>, <code class="ansible-value docutils literal notranslate"><span class="pre">ssh</span></code> and <code class="ansible-value docutils literal notranslate"><span class="pre">winrm</span></code> are the same.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;cloudinit&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;guestexec&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;ssh&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;winrm&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;unattend&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-appliance_url"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-appliance-url"><strong>appliance_url</strong></p>
+<a class="ansibleOptionLink" href="#parameter-appliance_url" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>URL of the Morpheus Appliance.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-auto_recover_power_state"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-auto-recover-power-state"><strong>auto_recover_power_state</strong></p>
+<a class="ansibleOptionLink" href="#parameter-auto_recover_power_state" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">boolean</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Automatically Power-on Virtual Machines.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-azure_costing_mode"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-azure-costing-mode"><strong>azure_costing_mode</strong></p>
+<a class="ansibleOptionLink" href="#parameter-azure_costing_mode" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Azure Costing Mode.</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">standard</span></code> = Pay As You Go</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">csp</span></code> = CSP</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">azure_plan</span></code> = CSP (Microsoft Customer Agreement)</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;azure_plan&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;csp&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;standard&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-azure_tenant_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-azure-tenant-id"><strong>azure_tenant_id</strong></p>
+<a class="ansibleOptionLink" href="#parameter-azure_tenant_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Azure Tenant ID.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-client_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-client-id"><strong>client_id</strong></p>
+<a class="ansibleOptionLink" href="#parameter-client_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Azure Client ID.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-client_secret"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-client-secret"><strong>client_secret</strong></p>
+<a class="ansibleOptionLink" href="#parameter-client_secret" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Azure Client Secret.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-cloud_type"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-cloud-type"><strong>cloud_type</strong></p>
+<a class="ansibleOptionLink" href="#parameter-cloud_type" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Azure Cloud type.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;global&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;usgov&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;german&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;china&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-code"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-code"><strong>code</strong></p>
+<a class="ansibleOptionLink" href="#parameter-code" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>The code to reference the Cloud for use in polcies etc.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-costing_mode"></div>
+<div class="ansibleOptionAnchor" id="parameter-costing"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-costing-mode"><span id="ansible-collections-morpheus-core-azure-cloud-module-parameter-costing"></span><strong>costing_mode</strong></p>
+<a class="ansibleOptionLink" href="#parameter-costing_mode" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: costing</span></p>
+<p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Enable costing on the Cloud.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;False&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;costing&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-csp_client_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-csp-client-id"><strong>csp_client_id</strong></p>
+<a class="ansibleOptionLink" href="#parameter-csp_client_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>The CSP Client ID.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-csp_client_secret"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-csp-client-secret"><strong>csp_client_secret</strong></p>
+<a class="ansibleOptionLink" href="#parameter-csp_client_secret" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>The CSP Client Secret.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-csp_tenant_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-csp-tenant-id"><strong>csp_tenant_id</strong></p>
+<a class="ansibleOptionLink" href="#parameter-csp_tenant_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>The CSP Tenant ID.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-dark_logo"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-dark-logo"><strong>dark_logo</strong></p>
+<a class="ansibleOptionLink" href="#parameter-dark_logo" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Path to an image file to use as the Cloud logo when in dark mode.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-datacenter_name"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-datacenter-name"><strong>datacenter_name</strong></p>
+<a class="ansibleOptionLink" href="#parameter-datacenter_name" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Custom Datacenter Identifier.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-description"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-description"><strong>description</strong></p>
+<a class="ansibleOptionLink" href="#parameter-description" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Set the description of the Cloud.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-enabled"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-enabled"><strong>enabled</strong></p>
+<a class="ansibleOptionLink" href="#parameter-enabled" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">boolean</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Enable <code class="ansible-option-value docutils literal notranslate"><a class="reference internal" href="#ansible-collections-morpheus-core-azure-cloud-module-parameter-enabled"><span class="std std-ref"><span class="pre">enabled=true</span></span></a></code> or Disable <code class="ansible-option-value docutils literal notranslate"><a class="reference internal" href="#ansible-collections-morpheus-core-azure-cloud-module-parameter-enabled"><span class="std std-ref"><span class="pre">enabled=false</span></span></a></code> the Cloud.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-force_remove"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-force-remove"><strong>force_remove</strong></p>
+<a class="ansibleOptionLink" href="#parameter-force_remove" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">boolean</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Force removal if Cloud is still in a group.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><strong><span class="pre">false</span></strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-group_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-group-id"><strong>group_id</strong></p>
+<a class="ansibleOptionLink" href="#parameter-group_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Set the Cloud Group this Cloud is a member of.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-guidence_mode"></div>
+<div class="ansibleOptionAnchor" id="parameter-guidance"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-guidence-mode"><span id="ansible-collections-morpheus-core-azure-cloud-module-parameter-guidance"></span><strong>guidence_mode</strong></p>
+<a class="ansibleOptionLink" href="#parameter-guidence_mode" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: guidance</span></p>
+<p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Enable/Disable Cloud Guidance</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;False&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;manual&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-id"></div>
+<div class="ansibleOptionAnchor" id="parameter-cloud_id"></div>
+<div class="ansibleOptionAnchor" id="parameter-zone_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-zone-id"><span id="ansible-collections-morpheus-core-azure-cloud-module-parameter-id"></span><span id="ansible-collections-morpheus-core-azure-cloud-module-parameter-cloud-id"></span><strong>id</strong></p>
+<a class="ansibleOptionLink" href="#parameter-id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: cloud_id, zone_id</span></p>
+<p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Specify an existing Cloud to Update or Remove.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-import_existing"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-import-existing"><strong>import_existing</strong></p>
+<a class="ansibleOptionLink" href="#parameter-import_existing" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">boolean</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Inventory Cloud and Import existing Virtual Machines.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">false</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-location"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-location"><strong>location</strong></p>
+<a class="ansibleOptionLink" href="#parameter-location" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Add location information for the Cloud.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-logo"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-logo"><strong>logo</strong></p>
+<a class="ansibleOptionLink" href="#parameter-logo" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Path to an image file to use as the Cloud logo.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-name"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-name"><strong>name</strong></p>
+<a class="ansibleOptionLink" href="#parameter-name" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Set the name of the Cloud.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-refresh_mode"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-refresh-mode"><strong>refresh_mode</strong></p>
+<a class="ansibleOptionLink" href="#parameter-refresh_mode" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>The type of refresh to perform.</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">costing</span></code> Pull costing data.</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">costing_rebuild</span></code> Purge existing costing data and rebuild by calling the Cloud API.</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">daily</span></code> Perform a daily Cloud Sync.</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">hourly</span></code> Perform hourly Cloud Sync.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;costing&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;costing_rebuild&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;daily&quot;</span></code></p></li>
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><strong><span class="pre">&quot;hourly&quot;</span></strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-refresh_period"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-refresh-period"><strong>refresh_period</strong></p>
+<a class="ansibleOptionLink" href="#parameter-refresh_period" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>The invoice billing period to refresh.</p>
+<p>The value should be in the format of YYYYMM.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-region_code"></div>
+<div class="ansibleOptionAnchor" id="parameter-region"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-region-code"><span id="ansible-collections-morpheus-core-azure-cloud-module-parameter-region"></span><strong>region_code</strong></p>
+<a class="ansibleOptionLink" href="#parameter-region_code" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: region</span></p>
+<p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Scoped region of the Cloud integration.</p>
+<p>Leaving this blank for a new integration scopes the integration to all regions.</p>
+<p>Specify <code class="ansible-value docutils literal notranslate"><span class="pre">all</span></code> if wanting to change an existing integrations scope to all regions.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-remove_resources"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-remove-resources"><strong>remove_resources</strong></p>
+<a class="ansibleOptionLink" href="#parameter-remove_resources" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">boolean</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Relevant when <code class="ansible-option-value docutils literal notranslate"><a class="reference internal" href="#ansible-collections-morpheus-core-azure-cloud-module-parameter-state"><span class="std std-ref"><span class="pre">state=absent</span></span></a></code>, remove associated resources when removing the cloud.</p>
+<p>Includes removal of Virtual Machines and other forms of Compute.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><strong><span class="pre">false</span></strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">true</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-resource_group"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-resource-group"><strong>resource_group</strong></p>
+<a class="ansibleOptionLink" href="#parameter-resource_group" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Azure Resource Group name.</p>
+<p>Leaving this blank for a new integration scopes the integration to all Resource Groups.</p>
+<p>Specify <code class="ansible-value docutils literal notranslate"><span class="pre">all</span></code> if wanting to change an existing integration to scope to all Resource Groups.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-rpc_mode"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-rpc-mode"><strong>rpc_mode</strong></p>
+<a class="ansibleOptionLink" href="#parameter-rpc_mode" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Cloud workload interaction method.</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">guestexec</span></code> = Azure Run Command</p>
+<p><code class="ansible-value docutils literal notranslate"><span class="pre">rpc</span></code> = SSH/WinRM</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;guestexec&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;rpc&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-scale_priority"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-scale-priority"><strong>scale_priority</strong></p>
+<a class="ansibleOptionLink" href="#parameter-scale_priority" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Set Scale Priority.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-security_mode"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-security-mode"><strong>security_mode</strong></p>
+<a class="ansibleOptionLink" href="#parameter-security_mode" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Host firewall.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;False&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;internal&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-state"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-state"><strong>state</strong></p>
+<a class="ansibleOptionLink" href="#parameter-state" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Create, Update or Remove a Cloud.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-default-bold docutils literal notranslate"><strong><span class="pre">&quot;present&quot;</span></strong></code> <span class="ansible-option-choices-default-mark">← (default)</span></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;absent&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;refresh&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-subscriber_id"></div>
+<div class="ansibleOptionAnchor" id="parameter-subscription_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-subscription-id"><span id="ansible-collections-morpheus-core-azure-cloud-module-parameter-subscriber-id"></span><strong>subscriber_id</strong></p>
+<a class="ansibleOptionLink" href="#parameter-subscriber_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-aliases">aliases: subscription_id</span></p>
+<p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Azure Subscription ID.</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-timezone"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-timezone"><strong>timezone</strong></p>
+<a class="ansibleOptionLink" href="#parameter-timezone" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>The Time Zone of the Cloud.</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="parameter-visibility"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-parameter-visibility"><strong>visibility</strong></p>
+<a class="ansibleOptionLink" href="#parameter-visibility" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Toggle tenant visibility between Private or Public.</p>
+<p class="ansible-option-line"><strong class="ansible-option-choices">Choices:</strong></p>
+<ul class="simple">
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;private&quot;</span></code></p></li>
+<li><p><code class="ansible-option-choices-entry docutils literal notranslate"><span class="pre">&quot;public&quot;</span></code></p></li>
+</ul>
+</div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="attributes">
+<h2><a class="toc-backref" href="#id3" role="doc-backlink">Attributes</a><a class="headerlink" href="#attributes" title="Link to this heading"></a></h2>
+<table class="longtable ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd"><th class="head"><p>Attribute</p></th>
+<th class="head"><p>Support</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-check_mode"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-attribute-check-mode"><strong>check_mode</strong></p>
+<a class="ansibleOptionLink" href="#attribute-check_mode" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Can run in check_mode and return changed status prediction without modifying target</p>
+</div></td>
+</tr>
+<tr class="row-odd"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-diff_mode"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-attribute-diff-mode"><strong>diff_mode</strong></p>
+<a class="ansibleOptionLink" href="#attribute-diff_mode" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-label">Support: </strong><strong class="ansible-attribute-support-full">full</strong></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Will return details on what has changed (or possibly needs changing in check_mode), when in diff mode</p>
+</div></td>
+</tr>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="attribute-platform"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-attribute-platform"><strong>platform</strong></p>
+<a class="ansibleOptionLink" href="#attribute-platform" title="Permalink to this attribute"></a></div></td>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-property">Platforms:</strong> </p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Target OS/families that can be operated against</p>
+</div></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="examples">
+<h2><a class="toc-backref" href="#id4" role="doc-backlink">Examples</a><a class="headerlink" href="#examples" title="Link to this heading"></a></h2>
+<div class="highlight-yaml+jinja notranslate"><div class="highlight"><pre><span></span><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Create Azure Cloud</span>
+<span class="w">  </span><span class="nt">morpheus.core.azure_cloud</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">present</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Azure Cloud</span>
+<span class="w">    </span><span class="nt">description</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Azure Cloud</span>
+<span class="w">    </span><span class="nt">code</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">AZCloud</span>
+<span class="w">    </span><span class="nt">location</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">UKSouth</span>
+<span class="w">    </span><span class="nt">visibility</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">private</span>
+<span class="w">    </span><span class="nt">group_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">78</span>
+<span class="w">    </span><span class="nt">account_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1</span>
+<span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">auto_recover_power_state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">costing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span>
+<span class="w">    </span><span class="nt">guidance</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span>
+<span class="w">    </span><span class="nt">security_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">off</span>
+<span class="w">    </span><span class="nt">timezone</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Europe/London</span>
+<span class="w">    </span><span class="nt">subscription_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2638d5ed-0ed1-4a0c-a57f-688a4850aede</span>
+<span class="w">    </span><span class="nt">azure_tenant_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5308e59d-e8c7-4f62-8a5c-da82262cb7b7</span>
+<span class="w">    </span><span class="nt">client_id</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8b25e5fb-03ff-4275-abfb-0ea1fcb392a2</span>
+<span class="w">    </span><span class="nt">client_secret</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5ecr3t</span>
+<span class="w">    </span><span class="nt">cloud_type</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">global</span>
+<span class="w">    </span><span class="nt">import_existing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+<span class="w">    </span><span class="nt">azure_costing_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">standard</span>
+<span class="w">    </span><span class="nt">rpc_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guestexec</span>
+<span class="w">    </span><span class="nt">agent_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">guestexec</span>
+
+<span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Refresh Cloud</span>
+<span class="w">  </span><span class="nt">morpheus.core.azure_cloud</span><span class="p">:</span>
+<span class="w">    </span><span class="nt">state</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">refresh</span>
+<span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Azure Cloud</span>
+<span class="w">    </span><span class="nt">refresh_mode</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">hourly</span>
+</pre></div>
+</div>
+</section>
+<section id="return-values">
+<h2><a class="toc-backref" href="#id5" role="doc-backlink">Return Values</a><a class="headerlink" href="#return-values" title="Link to this heading"></a></h2>
+<p>Common return values are documented <a class="reference external" href="https://docs.ansible.com/ansible/devel/reference_appendices/common_return_values.html#common-return-values" title="(in Ansible vdevel)"><span class="xref std std-ref">here</span></a>, the following are the fields unique to this module:</p>
+<table class="longtable ansible-option-table docutils align-default" style="width: 100%">
+<thead>
+<tr class="row-odd"><th class="head"><p>Key</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><div class="ansible-option-cell">
+<div class="ansibleOptionAnchor" id="return-cloud"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-azure-cloud-module-return-cloud"><strong>cloud</strong></p>
+<a class="ansibleOptionLink" href="#return-cloud" title="Permalink to this return value"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+</div></td>
+<td><div class="ansible-option-cell"><p>Information related to specified cloud.</p>
+<p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
+<p class="ansible-option-line ansible-option-sample"><strong class="ansible-option-sample-bold">Sample:</strong> <code class="ansible-option-sample docutils literal notranslate"><span class="pre">{&quot;cloud&quot;:</span> <span class="pre">{&quot;account&quot;:</span> <span class="pre">{&quot;id&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;MasterTenant&quot;},</span> <span class="pre">&quot;account_id&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;agent_mode&quot;:</span> <span class="pre">&quot;guestexec&quot;,</span> <span class="pre">&quot;api_proxy&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;auto_recover_power_state&quot;:</span> <span class="pre">false,</span> <span class="pre">&quot;code&quot;:</span> <span class="pre">&quot;AZCloud&quot;,</span> <span class="pre">&quot;config&quot;:</span> <span class="pre">{&quot;account_type&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;appliance_url&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;azure_costing_mode&quot;:</span> <span class="pre">&quot;standard&quot;,</span> <span class="pre">&quot;client_id&quot;:</span> <span class="pre">&quot;8b25e5fb-03ff-4275-abfb-0ea1fcb392a2&quot;,</span> <span class="pre">&quot;client_secret&quot;:</span> <span class="pre">&quot;************&quot;,</span> <span class="pre">&quot;cloud_type&quot;:</span> <span class="pre">&quot;global&quot;,</span> <span class="pre">&quot;config_cmdb_discovery&quot;:</span> <span class="pre">false,</span> <span class="pre">&quot;csp_client_id&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;csp_client_secret&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;csp_tenant_id&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;datacenter_name&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;import_existing&quot;:</span> <span class="pre">false,</span> <span class="pre">&quot;resource_group&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;rpc_mode&quot;:</span> <span class="pre">&quot;guestexec&quot;,</span> <span class="pre">&quot;subscriber_id&quot;:</span> <span class="pre">&quot;2638d5ed-0ed1-4a0c-a57f-688a4850aede&quot;,</span> <span class="pre">&quot;tenant_id&quot;:</span> <span class="pre">&quot;5308e59d-e8c7-4f62-8a5c-da82262cb7b7&quot;},</span> <span class="pre">&quot;console_keymap&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;container_mode&quot;:</span> <span class="pre">&quot;docker&quot;,</span> <span class="pre">&quot;cost_last_sync&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;cost_last_sync_duration&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;cost_status&quot;:</span> <span class="pre">&quot;ok&quot;,</span> <span class="pre">&quot;cost_status_date&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;cost_status_message&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;costing_mode&quot;:</span> <span class="pre">&quot;off&quot;,</span> <span class="pre">&quot;credential&quot;:</span> <span class="pre">{&quot;type&quot;:</span> <span class="pre">&quot;local&quot;},</span> <span class="pre">&quot;dark_image_path&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;date_created&quot;:</span> <span class="pre">&quot;2024-01-01T00:00:01Z&quot;,</span> <span class="pre">&quot;domain_name&quot;:</span> <span class="pre">&quot;localdomain&quot;,</span> <span class="pre">&quot;enabled&quot;:</span> <span class="pre">false,</span> <span class="pre">&quot;external_id&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;groups&quot;:</span> <span class="pre">[{&quot;account_id&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;id&quot;:</span> <span class="pre">78,</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;Azure</span> <span class="pre">Clouds&quot;}],</span> <span class="pre">&quot;guidance_mode&quot;:</span> <span class="pre">&quot;off&quot;,</span> <span class="pre">&quot;id&quot;:</span> <span class="pre">57,</span> <span class="pre">&quot;image_path&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;inventory_level&quot;:</span> <span class="pre">&quot;off&quot;,</span> <span class="pre">&quot;last_sync&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;last_sync_duration&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;last_updated&quot;:</span> <span class="pre">&quot;2024-01-01T00:00:01Z&quot;,</span> <span class="pre">&quot;location&quot;:</span> <span class="pre">&quot;UKSouth&quot;,</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;Azure</span> <span class="pre">Cloud&quot;,</span> <span class="pre">&quot;network_domain&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;network_server&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;next_run_date&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;owner&quot;:</span> <span class="pre">{&quot;id&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;MasterTenant&quot;},</span> <span class="pre">&quot;provisioning_proxy&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;region_code&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;scale_priority&quot;:</span> <span class="pre">1,</span> <span class="pre">&quot;security_mode&quot;:</span> <span class="pre">&quot;off&quot;,</span> <span class="pre">&quot;security_server&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;server_count&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;service_version&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;stats&quot;:</span> <span class="pre">{&quot;server_counts&quot;:</span> <span class="pre">{&quot;all&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;baremetal&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;container_host&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;host&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;hypervisor&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;unmanaged&quot;:</span> <span class="pre">0,</span> <span class="pre">&quot;vm&quot;:</span> <span class="pre">0}},</span> <span class="pre">&quot;status&quot;:</span> <span class="pre">&quot;initializing&quot;,</span> <span class="pre">&quot;status_date&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;status_message&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;storage_mode&quot;:</span> <span class="pre">&quot;standard&quot;,</span> <span class="pre">&quot;timezone&quot;:</span> <span class="pre">&quot;Europe/London&quot;,</span> <span class="pre">&quot;user_data_linux&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;user_data_windows&quot;:</span> <span class="pre">null,</span> <span class="pre">&quot;visibility&quot;:</span> <span class="pre">&quot;private&quot;,</span> <span class="pre">&quot;zone_type&quot;:</span> <span class="pre">{&quot;code&quot;:</span> <span class="pre">&quot;azure&quot;,</span> <span class="pre">&quot;id&quot;:</span> <span class="pre">9,</span> <span class="pre">&quot;name&quot;:</span> <span class="pre">&quot;Azure</span> <span class="pre">(Public)&quot;},</span> <span class="pre">&quot;zone_type_id&quot;:</span> <span class="pre">9}}</span></code></p>
+</div></td>
+</tr>
+</tbody>
+</table>
+<section id="authors">
+<h3>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p>James Riach</p></li>
+</ul>
+</section>
+<section id="collection-links">
+<h3>Collection links<a class="headerlink" href="#collection-links" title="Link to this heading"></a></h3>
+<ul class="ansible-links">
+<li><span><a aria-role="button" class="ansible-link reference external" href="https://www.github.com/gomorpheus/ansible-collection-morpheus-core" rel="noopener external" target="_blank">Repository (Sources)</a></span></li>
+</ul>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          
+
+<footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="appliance_settings_module.html" class="btn btn-neutral float-left" title="morpheus.core.appliance_settings module – Configure Morpheus Appliance Settings" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="cloud_datastore_module.html" class="btn btn-neutral float-right" title="morpheus.core.cloud_datastore module – Configure Cloud Datastores" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright Morpheus.Core Contributors.</p>
+  </div>
+
+  
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script><!-- extra footer elements for Ansible beyond RTD Sphinx Theme -->
+
+</body>
+</html>
