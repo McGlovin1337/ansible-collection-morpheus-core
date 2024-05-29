@@ -79,6 +79,10 @@ class ApiPath(Enum):
         'dict': 'role',
         'list': 'roles'
     }
+    SEARCH_PATH = {
+        'path': '/api/search',
+        'list': 'hits'
+    }
     SNAPSHOTS_PATH = {
         'path': '/api/snapshots',
         'dict': 'snapshot',

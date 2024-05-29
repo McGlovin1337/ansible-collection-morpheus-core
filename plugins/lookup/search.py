@@ -5,13 +5,28 @@ DOCUMENTATION = r'''
 name: search
 author: James Riach (@McGlovin1337)
 version_added: 0.x.x
-short_description: Perform a Global Search of Morpheus
+short_description: Lookup various Morpheus items
 description:
-    - Perform a general purpose global search of a Morpheus Appliance.
+    - Search for various Morpheus items.
 options:
     _terms:
         description:
             - The search terms to lookup.
+    search_type:
+        description:
+            - The item type to search/lookup.
+            - By default this is a general global search of the Morpheus Appliance.
+        type: str
+        default: global
+        choices:
+            - cloud
+            - global
+            - group
+            - instance
+            - integration
+            - role
+            - tenant
+            - virtual_image
     morpheus_host:
         description:
             - The Morpheus Hostname or IP Address to query.
@@ -67,6 +82,10 @@ EXAMPLES = r'''
 - name: Search current Morpheus Appliance when used with httpapi plugin
   ansible.builtin.debug:
     msg: "{{ q('morpheus.core.search', 'instance', morpheus_instance=inventory_hostname) }}"
+
+- name: Search for Instances with "Apache" in their name
+  ansible.builtin.debug:
+    msg: "{{ q('morpheus.core.search', 'Apache', search_type='instance', morpheus_instance=inventory_hostname) }}"
 '''
 
 RETURN = r'''
@@ -87,8 +106,10 @@ from ansible.plugins.lookup import LookupBase
 
 try:
     import module_utils.morpheus_funcs as mf
+    from module_utils.morpheusapi import ApiPath
 except ModuleNotFoundError:
     import ansible_collections.morpheus.core.plugins.module_utils.morpheus_funcs as mf
+    from ansible_collections.morpheus.core.plugins.module_utils.morpheusapi import ApiPath
 
 
 class LookupModule(LookupBase):
@@ -154,8 +175,8 @@ class LookupModule(LookupBase):
 
         use_ssl = self.get_option('use_ssl')
         url_prefix = 'https://' if use_ssl else 'http://'
-        search_url = '{0}{1}/api/search'.format(url_prefix, self.get_option('morpheus_host'))
-        login_url = '{0}{1}/oauth/token'.format(url_prefix, self.get_option('morpheus_host'))
+        root_url = '{0}{1}'.format(url_prefix, self.get_option('morpheus_host'))
+        login_url = '{0}/oauth/token'.format(root_url)
 
         validate_certs = self.get_option('validate_certs') if use_ssl else False
 
@@ -174,10 +195,24 @@ class LookupModule(LookupBase):
             'authorization': 'Bearer {0}'.format(token)
         }
 
+        api_path = {
+            'cloud': ApiPath.CLOUDS,
+            'cloud_type': ApiPath.CLOUD_TYPES,
+            'global': ApiPath.SEARCH_PATH,
+            'group': ApiPath.GROUPS_PATH,
+            'instance': ApiPath.INSTANCES_PATH,
+            'integration': ApiPath.INTEGRATIONS_PATH,
+            'role': ApiPath.ROLES_PATH,
+            'tenant': ApiPath.TENANTS_PATH,
+            'virtual_image': ApiPath.VIRTUAL_IMAGES_PATH
+        }.get(self.get_option('search_type'))
+
+        api_url = '{0}{1}'.format(root_url, api_path.value['path'])
+
         return_list = []
 
         for term in terms:
-            query_url = self._build_url(search_url, [('phrase', term)])
+            query_url = self._build_url(api_url, [('phrase', term)])
             try:
                 response = open_url(
                     url=query_url,
@@ -196,7 +231,7 @@ class LookupModule(LookupBase):
 
             response_data = json.loads(to_text(response.read()))
 
-            for hit in response_data['hits']:
-                return_list.append(mf.dict_keys_to_snake_case(hit))
+            for response_item in response_data[api_path.value['list']]:
+                return_list.append(mf.dict_keys_to_snake_case(response_item))
 
         return return_list

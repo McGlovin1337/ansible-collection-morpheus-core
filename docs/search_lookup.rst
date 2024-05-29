@@ -324,6 +324,57 @@ examples: ``lookup('morpheus.core.search', key1=value1, key2=value2, ...)`` and 
   * - .. raw:: html
 
         <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="parameter-search_type"></div>
+
+      .. _ansible_collections.morpheus.core.search_lookup__parameter-search_type:
+
+      .. rst-class:: ansible-option-title
+
+      **search_type**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#parameter-search_type" title="Permalink to this option"></a>
+
+      .. ansible-option-type-line::
+
+        :ansible-option-type:`string`
+
+
+
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      The item type to search/lookup.
+
+
+      .. rst-class:: ansible-option-line
+
+      :ansible-option-choices:`Choices:`
+
+      - :ansible-option-choices-entry:`"cloud"`
+      - :ansible-option-choices-entry-default:`"global"` :ansible-option-choices-default-mark:`← (default)`
+      - :ansible-option-choices-entry:`"group"`
+      - :ansible-option-choices-entry:`"instance"`
+      - :ansible-option-choices-entry:`"integration"`
+      - :ansible-option-choices-entry:`"role"`
+      - :ansible-option-choices-entry:`"tenant"`
+      - :ansible-option-choices-entry:`"virtual\_image"`
+
+
+      .. raw:: html
+
+        </div>
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
         <div class="ansibleOptionAnchor" id="parameter-use_ssl"></div>
 
       .. _ansible_collections.morpheus.core.search_lookup__parameter-use_ssl:
