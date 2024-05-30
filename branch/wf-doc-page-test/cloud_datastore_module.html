@@ -2,7 +2,7 @@
 <html class="writer-html5" lang="en" data-content_root="./">
 <head>
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
-<meta content="2.9.0" name="antsibull-docs" />
+<meta content="2.11.0" name="antsibull-docs" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>morpheus.core.cloud_datastore module – Configure Cloud Datastores &mdash; Morpheus.Core Collection  documentation</title>
@@ -20,7 +20,7 @@
         <script src="_static/jquery.js?v=5d32c60e"></script>
         <script src="_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
         <script src="_static/documentation_options.js?v=7f41d439"></script>
-        <script src="_static/doctools.js?v=888ff710"></script>
+        <script src="_static/doctools.js?v=9a2dae69"></script>
         <script src="_static/sphinx_highlight.js?v=dc90522c"></script>
     <script src="_static/js/theme.js"></script>
     <link rel="search" title="Search" href="search.html" />
@@ -153,7 +153,7 @@
 <h1>morpheus.core.cloud_datastore module – Configure Cloud Datastores<a class="headerlink" href="#morpheus-core-cloud-datastore-module-configure-cloud-datastores" title="Link to this heading"></a></h1>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>This module is part of the <a class="reference external" href="https://galaxy.ansible.com/ui/repo/published/morpheus/core/">morpheus.core collection</a> (version 0.7.0).</p>
+<p>This module is part of the <a class="reference external" href="https://galaxy.ansible.com/ui/repo/published/morpheus/core/">morpheus.core collection</a> (version 0.7.1).</p>
 <p>It is not included in <code class="docutils literal notranslate"><span class="pre">ansible-core</span></code>.
 To check whether it is installed, run <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">list</span></code>.</p>
 <p>To install it, use: <code class="code docutils literal notranslate"><span class="pre">ansible-galaxy</span> <span class="pre">collection</span> <span class="pre">install</span> <span class="pre">morpheus.core</span></code>.</p>
@@ -338,7 +338,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 </tr>
 <tr class="row-odd"><td><div class="ansible-option-indent"></div><div class="ansible-option-cell">
 <div class="ansibleOptionAnchor" id="parameter-tenant_permissions/tenant_id"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-cloud-datastore-module-parameter-tenant-permissions-tenant-id"><strong>tenant_id</strong></p>
-<a class="ansibleOptionLink" href="#parameter-tenant_permissions/tenant_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span></p>
+<a class="ansibleOptionLink" href="#parameter-tenant_permissions/tenant_id" title="Permalink to this option"></a><p class="ansible-option-type-line"><span class="ansible-option-type">integer</span> / <span class="ansible-option-required">required</span></p>
 </div></td>
 <td><div class="ansible-option-indent-desc"></div><div class="ansible-option-cell"><p>The id of the tenant to add or remove permissions for.</p>
 </div></td>
@@ -396,7 +396,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <tr class="row-even"><td><div class="ansible-option-cell">
 <div class="ansibleOptionAnchor" id="attribute-platform"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-cloud-datastore-module-attribute-platform"><strong>platform</strong></p>
 <a class="ansibleOptionLink" href="#attribute-platform" title="Permalink to this attribute"></a></div></td>
-<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-property">Platforms:</strong> </p>
+<td><div class="ansible-option-cell"><p><strong class="ansible-attribute-support-property">Platform:</strong> <strong class="ansible-attribute-support-full">httpapi</strong></p>
 </div></td>
 <td><div class="ansible-option-cell"><p>Target OS/families that can be operated against</p>
 </div></td>
@@ -452,7 +452,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <tbody>
 <tr class="row-even"><td><div class="ansible-option-cell">
 <div class="ansibleOptionAnchor" id="return-datastore"></div><p class="ansible-option-title" id="ansible-collections-morpheus-core-cloud-datastore-module-return-datastore"><strong>datastore</strong></p>
-<a class="ansibleOptionLink" href="#return-datastore" title="Permalink to this return value"></a><p class="ansible-option-type-line"><span class="ansible-option-type">string</span></p>
+<a class="ansibleOptionLink" href="#return-datastore" title="Permalink to this return value"></a><p class="ansible-option-type-line"><span class="ansible-option-type">dictionary</span></p>
 </div></td>
 <td><div class="ansible-option-cell"><p>Information about the datastore after changes.</p>
 <p class="ansible-option-line"><strong class="ansible-option-returned-bold">Returned:</strong> always</p>
@@ -464,7 +464,7 @@ To check whether it is installed, run <code class="code docutils literal notrans
 <section id="authors">
 <h3>Authors<a class="headerlink" href="#authors" title="Link to this heading"></a></h3>
 <ul class="simple">
-<li><p>James Riach</p></li>
+<li><p>James Riach (&#64;McGlovin1337)</p></li>
 </ul>
 </section>
 <section id="collection-links">
