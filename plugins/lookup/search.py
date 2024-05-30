@@ -12,21 +12,35 @@ options:
     _terms:
         description:
             - The search terms to lookup.
-    search_type:
+    search_item:
         description:
             - The item type to search/lookup.
             - By default this is a general global search of the Morpheus Appliance.
         type: str
         default: global
         choices:
+            - app
+            - blueprint
             - cloud
+            - cloud_type
+            - environment
             - global
             - group
+            - host
             - instance
+            - instance_type
             - integration
+            - layout
+            - network
+            - network_group
+            - node_type
+            - plugin
+            - policy
             - role
+            - task
             - tenant
             - virtual_image
+            - workflow
     morpheus_host:
         description:
             - The Morpheus Hostname or IP Address to query.
@@ -112,6 +126,32 @@ except ModuleNotFoundError:
     from ansible_collections.morpheus.core.plugins.module_utils.morpheusapi import ApiPath
 
 
+API_OPTION_MAP = {
+    'app': ApiPath.APPS_PATH,
+    'blueprint': ApiPath.BLUEPRINTS_PATH,
+    'cloud': ApiPath.CLOUDS,
+    'cloud_type': ApiPath.CLOUD_TYPES,
+    'environment': ApiPath.ENVIRONMENTS_PATH,
+    'global': ApiPath.SEARCH_PATH,
+    'group': ApiPath.GROUPS_PATH,
+    'host': ApiPath.HOSTS_PATH,
+    'instance': ApiPath.INSTANCES_PATH,
+    'instance_type': ApiPath.INSTANCE_TYPES_PATH,
+    'integration': ApiPath.INTEGRATIONS_PATH,
+    'layout': ApiPath.LAYOUTS_PATH,
+    'network': ApiPath.NETWORKS_PATH,
+    'network_group': ApiPath.NETWORK_GROUPS_PATH,
+    'node_type': ApiPath.NODE_TYPES_PATH,
+    'plugin': ApiPath.PLUGINS_PATH,
+    'policy': ApiPath.POLICIES_PATH,
+    'role': ApiPath.ROLES_PATH,
+    'task': ApiPath.TASKS_PATH,
+    'tenant': ApiPath.TENANTS_PATH,
+    'virtual_image': ApiPath.VIRTUAL_IMAGES_PATH,
+    'workflow': ApiPath.WORKFLOWS_PATH
+}
+
+
 class LookupModule(LookupBase):
     def _build_url(self, path: str, params: list[tuple] = None):
         url_parts = list(urllib.parse.urlparse(path))
@@ -195,17 +235,7 @@ class LookupModule(LookupBase):
             'authorization': 'Bearer {0}'.format(token)
         }
 
-        api_path = {
-            'cloud': ApiPath.CLOUDS,
-            'cloud_type': ApiPath.CLOUD_TYPES,
-            'global': ApiPath.SEARCH_PATH,
-            'group': ApiPath.GROUPS_PATH,
-            'instance': ApiPath.INSTANCES_PATH,
-            'integration': ApiPath.INTEGRATIONS_PATH,
-            'role': ApiPath.ROLES_PATH,
-            'tenant': ApiPath.TENANTS_PATH,
-            'virtual_image': ApiPath.VIRTUAL_IMAGES_PATH
-        }.get(self.get_option('search_type'))
+        api_path = API_OPTION_MAP.get(self.get_option('search_item'))
 
         api_url = '{0}{1}'.format(root_url, api_path.value['path'])
 
