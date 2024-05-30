@@ -9,7 +9,7 @@ short_description: Manage Groups
 description:
     - Create, Update and Remove Groups.
 version_added: 0.7.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     state:
         description:
@@ -18,7 +18,7 @@ options:
             - absent
             - present
         default: present
-        type: string
+        type: str
     id:
         description:
             - Id of an existing Group.
@@ -26,20 +26,20 @@ options:
     name:
         description:
             - Name of the Group.
-        type: string
+        type: str
     code:
         description:
             - Short Code name for the Group.
-        type: string
+        type: str
     labels:
         description:
             - List of Labels for the Group.
         type: list
-        elements: string
+        elements: str
     location:
         description:
             - Location information for the Group.
-        type: string
+        type: str
     dns_id:
         description:
             - Id of a DNS Integration.
@@ -77,7 +77,7 @@ options:
                     - absent
                     - present
                 default: present
-                type: string
+                type: str
             id:
                 description:
                     - The Id of the Cloud/Zone.
@@ -90,6 +90,9 @@ attributes:
         support: full
     diff_mode:
         support: full
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -120,6 +123,7 @@ RETURN = r'''
 group:
     description:
         - Group Information.
+    type: dict
     returned: always
     sample:
         "group": {
@@ -227,7 +231,7 @@ def create_update_group(module: AnsibleModule, morpheus_api: MorpheusApi, existi
     action = {
         'False': partial(morpheus_api.common_create, path=ApiPath.GROUPS_PATH, api_params=api_params),
         'True': partial(morpheus_api.common_set, path=ApiPath.GROUPS_PATH, item_id=api_params.pop('id'), api_params=api_params),
-        'Check': partial(parse_check_mode, state=module.params['state'], existing_group=existing_group)
+        'Check': partial(parse_check_mode, state=module.params['state'], api_params=api_params, existing_group=existing_group)
     }.get(str('id' in existing_group) if not module.check_mode else 'Check')
 
     action_result = action()
@@ -251,7 +255,7 @@ def create_update_group(module: AnsibleModule, morpheus_api: MorpheusApi, existi
                 **zone_params
             })
 
-            success, _ = mf.success_response(zone_update)
+            success, msg = mf.success_response(zone_update)
 
             if success:
                 updated_group = morpheus_api.common_get(ApiPath.GROUPS_PATH, {'id': action_result['id'] if 'id' in action_result else existing_group['id']})
@@ -361,14 +365,18 @@ def parse_check_mode(state: str, api_params: dict, existing_group: dict) -> dict
     if state == 'absent':
         return {'success': True, 'msg': ''}
 
-    updated_group = existing_group.copy()
+    updated_group = existing_group.copy() if len(existing_group) > 0 else MOCK_GROUP
 
     if 'id' not in existing_group:
         existing_group = MOCK_GROUP
 
     for k, v in api_params.items():
-        if k in existing_group and v is not None:
+        if k in existing_group and k != 'config' and v is not None:
             updated_group[k] = v
+
+    for k, v in api_params['config'].items():
+        if v is not None:
+            updated_group['config'][k] = v
 
     return updated_group
 
@@ -439,9 +447,9 @@ def run_module():
         'service_registry_id': {'type': 'int'},
         'config_management_id': {'type': 'int'},
         'cmdb_discovery': {'type': 'bool'},
-        'zones': {'type': 'list', 'elements': 'dict', 'suboptions': {
+        'zones': {'type': 'list', 'elements': 'dict', 'options': {
             'state': {'type': 'str', 'choices': ['absent', 'present'], 'default': 'present'},
-            'id': {'type': 'int', 'required': 'true'}
+            'id': {'type': 'int', 'required': True}
         }}
     }
 

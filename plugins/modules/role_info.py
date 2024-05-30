@@ -9,7 +9,7 @@ short_description: Retrieves Role Information
 description:
     - Retrieves list of Morpheus Roles.
 version_added: 0.7.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     diverged:
         description:
@@ -27,9 +27,19 @@ options:
             - account
             - tenant
             - user
-        type: string
+        type: str
 extends_documentation_fragment:
     - morpheus.core.generic_name_filter
+    - action_common_attributes
+attributes:
+    check_mode:
+        support: N/A
+        details: Not Required, Module does not make changes.
+    diff_mode:
+        support: N/A
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -53,6 +63,7 @@ RETURN = r'''
 roles:
     description:
         - List of matching roles.
+    type: list
     returned: always
     sample:
         "roles": [

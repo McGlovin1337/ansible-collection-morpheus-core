@@ -9,7 +9,7 @@ short_description: Gather Snapshot information for instances
 description:
     - Gather Snapshot information for instances.
 version_added: 0.5.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     match_name:
         description:
@@ -20,10 +20,20 @@ options:
             - first
             - last
             - all
-        type: string
+        type: str
 extends_documentation_fragment:
     - morpheus.core.instance_filter_base
     - morpheus.core.instance_filter_extended
+    - action_common_attributes
+attributes:
+    check_mode:
+        support: N/A
+        details: Not Required, Module does not make changes.
+    diff_mode:
+        support: N/A
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -47,6 +57,7 @@ RETURN = r'''
 instance_snapshots:
     description:
         - List of Instances and their snapshots
+    type: list
     returned: always
     sample:
         "instance_snapshots": [
@@ -101,7 +112,7 @@ def run_module():
             'environment': {'type': 'str'},
             'labels': {'type': 'list', 'elements': 'str'},
             'match_all_labels': {'type': 'bool', 'default': 'false'},
-            'tags': {'type': 'str'}
+            'tags': {'type': 'list', 'elements': 'str'}
         }
     }
 

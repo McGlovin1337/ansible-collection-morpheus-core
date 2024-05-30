@@ -9,7 +9,7 @@ short_description: Manage a Standard Morpheus Cloud
 description:
     - Manage Standard Morpheus Clouds.
 version_added: 0.7.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     enable_network_type_selection:
         description:
@@ -27,6 +27,9 @@ attributes:
         support: full
     diff_mode:
         support: full
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -64,6 +67,7 @@ RETURN = r'''
 cloud:
     description:
         - Information related to the specified cloud.
+    type: dict
     returned: always
     sample:
         "cloud": {
@@ -229,8 +233,8 @@ def run_module():
 
     required_if = [
         ('state', 'absent', ('id', 'name'), True),
-        ('id', None, ('name')),
-        ('name', None, ('id'))
+        ('id', None, ('name',)),
+        ('name', None, ('id',))
     ]
 
     module = AnsibleModule(

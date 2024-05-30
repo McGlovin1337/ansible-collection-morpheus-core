@@ -9,7 +9,7 @@ short_description: Gather information about instances
 description:
     - Gathers information about Morpheus instances
 version_added: 0.4.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     detail:
         description:
@@ -20,11 +20,11 @@ options:
             - full
             - extra
             - summary
-        type: string
+        type: str
     instance_type:
         description:
             - Filter by the instance type code.
-        type: string
+        type: str
     agent_installed:
         description:
             - Filter by if agent is installed or not.
@@ -32,7 +32,7 @@ options:
     status:
         description:
             - Filter by instance status, e.g. running
-        type: string
+        type: str
     deleted:
         description:
             - Include, Exclude or Only show deleted instances or those pending removal.
@@ -41,10 +41,20 @@ options:
             - include
             - only
         default: exclude
-        type: string
+        type: str
 extends_documentation_fragment:
     - morpheus.core.instance_filter_base
     - morpheus.core.instance_filter_extended
+    - action_common_attributes
+attributes:
+    check_mode:
+        support: N/A
+        details: Not Required, Module does not make changes.
+    diff_mode:
+        support: N/A
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -86,6 +96,7 @@ RETURN = r'''
 morpheus_instances:
     description:
         - List of instances with info
+    type: list
     returned: always
     sample:
         "morpheus_instances": [
@@ -215,7 +226,7 @@ def run_module():
             'deleted': {'type': 'str', 'choices': ['exclude', 'include', 'only'], 'default': 'exclude'},
             'labels': {'type': 'list', 'elements': 'str'},
             'match_all_labels': {'type': 'bool', 'default': 'false'},
-            'tags': {'type': 'str'}
+            'tags': {'type': 'list', 'elements': 'str'}
         }
     }
 

@@ -9,7 +9,7 @@ short_description: Toggle Maintenance Mode of the target Morpheus Appliance
 description:
     - Toggles Maintenance Mode of the target Morpheus Appliance
 version_added: 0.4.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     state:
         description:
@@ -18,7 +18,7 @@ options:
         choices:
             - enabled
             - disabled
-        type: string
+        type: str
 extends_documentation_fragment:
     - action_common_attributes
 attributes:
@@ -26,6 +26,9 @@ attributes:
         support: full
     diff_mode:
         support: full
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''

@@ -9,7 +9,7 @@ short_description: Retrieves Group Info
 description:
     - Retrieves information about Groups.
 version_added: 0.7.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     detail:
         description:
@@ -18,9 +18,19 @@ options:
         choices:
             - summary
             - full
-        type: string
+        type: str
 extends_documentation_fragment:
     - morpheus.core.generic_name_filter
+    - action_common_attributes
+attributes:
+    check_mode:
+        support: N/A
+        details: Not Required, Module does not make changes.
+    diff_mode:
+        support: N/A
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -42,6 +52,7 @@ RETURN = r'''
 groups:
     description:
         - List of groups information.
+    type: list
     returned: always
     sample:
         "groups": [

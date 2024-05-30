@@ -9,7 +9,7 @@ short_description: Configure Cloud Datastores
 description:
     - Update the configuration of Cloud Datastores.
 version_added: 0.7.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     id:
         description:
@@ -29,14 +29,14 @@ options:
         choices:
             - active
             - inactive
-        type: string
+        type: str
     visibility:
         description:
             - The visibility of the Datastore.
         choices:
             - private
             - public
-        type: string
+        type: str
     tenant_permissions:
         description:
             - List of Tenant Permissions on the Datastore.
@@ -50,11 +50,12 @@ options:
                     - absent
                     - present
                 default: present
-                type: string
+                type: str
             tenant_id:
                 description:
                     - The id of the tenant to add or remove permissions for.
                 type: int
+                required: true
             default_target:
                 description:
                     - Set the Datastore as the default for the specified tenant.
@@ -85,7 +86,7 @@ options:
                             - absent
                             - present
                         default: present
-                        type: string
+                        type: str
                     group_id:
                         description:
                             - Id of the group to allow access.
@@ -111,7 +112,7 @@ options:
                             - absent
                             - present
                         default: present
-                        type: string
+                        type: str
                     plan_id:
                         description:
                             - Id of the Plan to allow access.
@@ -123,6 +124,9 @@ attributes:
         support: full
     diff_mode:
         support: full
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -163,6 +167,7 @@ RETURN = r'''
 datastore:
     description:
         - Information about the datastore after changes.
+    type: dict
     returned: always
     sample:
         "datastore": {
@@ -209,8 +214,8 @@ def parse_check_mode(current_state: dict, api_params: dict) -> dict:
     params = mf.dict_keys_to_camel_case(api_params)
 
     for k in params:
-        if k not in ['id', 'zoneId', 'tenantPermissions', 'resourcePermissions'] and api_params[k] is not None:
-            current_state[k] = api_params[k]
+        if k not in ['cloudId', 'id', 'zoneId', 'tenantPermissions', 'resourcePermissions'] and params[k] is not None:
+            current_state[k] = params[k]
 
     return current_state
 
@@ -367,9 +372,11 @@ def run_module():
 
     before_state = morpheus_api.get_cloud_datastores(api_params.copy())
 
-    api_params['resource_permissions'] = parse_resource_permissions(before_state['resourcePermission'], module.params['resource_permissions'])
+    if module.params['resource_permissions'] is not None:
+        api_params['resource_permissions'] = parse_resource_permissions(before_state['resourcePermission'], module.params['resource_permissions'])
 
-    api_params['tenant_permissions'] = parse_tenant_permissions(before_state['tenants'], module.params['tenant_permissions'])
+    if module.params['tenant_permissions'] is not None:
+        api_params['tenant_permissions'] = parse_tenant_permissions(before_state['tenants'], module.params['tenant_permissions'])
 
     action = {
         'True': partial(parse_check_mode, current_state=before_state.copy()),

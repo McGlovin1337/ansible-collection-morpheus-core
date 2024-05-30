@@ -9,7 +9,7 @@ short_description: Gather Morpheus Appliance Facts
 description:
     - Gathers Morpheus Appliance Facts
 version_added: 0.3.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     gather_subset:
         description:
@@ -32,6 +32,17 @@ options:
         type: list
         elements: str
         default: []
+extends_documentation_fragment:
+    - action_common_attributes
+attributes:
+    check_mode:
+        support: N/A
+        details: Not Required, Module does not make changes.
+    diff_mode:
+        support: N/A
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -53,7 +64,9 @@ EXAMPLES = r'''
 
 RETURN = r'''
 ansible_facts:
-    description: Example of returned ansible_facts
+    description:
+        - Example of returned ansible_facts
+    type: dict
     returned: always
     sample:
         "ansible_facts": {

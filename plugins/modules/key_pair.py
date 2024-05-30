@@ -10,7 +10,7 @@ description:
     - Create and Remove Key Pairs.
     - Keys can be user provided or generated.
 version_added: 0.6.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     state:
         description:
@@ -19,7 +19,7 @@ options:
         choices:
             - absent
             - present
-        type: string
+        type: str
     id:
         description:
             - Required when O(state=absent), specify the Key Pair to remove.
@@ -28,19 +28,19 @@ options:
         description:
             - Required when O(state=present), specify the name of the Key Pair.
             - Specifying this parameter alone will generate a Key Pair.
-        type: string
+        type: str
     private_key:
         description:
             - Specify the Private Key.
-        type: string
+        type: str
     public_key:
         description:
             - Specify the Public Key.
-        type: string
+        type: str
     passphrase:
         description:
             - Specify the Private Key passphrase.
-        type: string
+        type: str
 extends_documentation_fragment:
     - action_common_attributes
 attributes:
@@ -48,6 +48,9 @@ attributes:
         support: none
     diff_mode:
         support: full
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -75,6 +78,7 @@ key_pair:
     description:
         - Dictionary information about the Key Pair.
         - If this was a Generated Key Pair, it will include details of the Private Key.
+    type: dict
     returned: always
     sample:
         "key_pair": {
@@ -92,6 +96,7 @@ key_pair:
 errors:
     description:
         - Any errors when generating or adding a Key Pair.
+    type: dict
     returned: always
     sample:
         "errors" : {

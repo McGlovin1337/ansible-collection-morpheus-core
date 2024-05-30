@@ -9,7 +9,7 @@ short_description: Basic Management of Morpheus Instances
 description:
     - This module provides basic management of Morpheus Instances, such as setting running state, backup, deletion and lock status.
 version_added: 0.5.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     match_name:
         description:
@@ -20,7 +20,7 @@ options:
             - first
             - last
             - all
-        type: string
+        type: str
     state:
         description:
             - Set the State of the Instance.
@@ -37,7 +37,7 @@ options:
             - absent
             - eject
         required: true
-        type: string
+        type: str
     remove_options:
         description:
             - When O(state=absent) specify additional removal options.
@@ -71,6 +71,9 @@ attributes:
         support: full
     diff_mode:
         support: full
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -112,6 +115,7 @@ RETURN = r'''
 instance_state:
     description:
         - State of the instance(s) following the requested action.
+    type: list
     returned: always
     sample:
         "instance_state": [
@@ -184,16 +188,16 @@ def parse_check_mode(module_params: dict, instance: dict) -> dict:
 
 def run_module():
     argument_spec = {
-        'id': {'type': 'str'},
+        'id': {'type': 'int'},
         'name': {'type': 'str'},
         'regex_name': {'type': 'bool', 'default': 'false'},
         'match_name': {'type': 'str', 'choices': ['none', 'first', 'last', 'all'], 'default': 'none'},
         'state': {'type': 'str',
                   'choices': ['running', 'started', 'stopped', 'restarted', 'suspended', 'locked', 'unlocked', 'backup', 'absent', 'eject'],
-                  'required': 'true'},
+                  'required': True},
         'remove_options': {
             'type': 'dict',
-            'apply_defaults': 'true',
+            'apply_defaults': True,
             'options': {
                 'preserve_volumes': {'type': 'bool', 'default': 'false'},
                 'keep_backups': {'type': 'bool', 'default': 'false'},
@@ -249,7 +253,7 @@ def run_module():
         results = [mf.dict_keys_to_snake_case(action_func(item_id=instance['id'])) for instance in instances]
 
         for response in results:
-            success, _ = mf.success_response(response[list(response.keys())[0]]) \
+            success, msg = mf.success_response(response[list(response.keys())[0]]) \
                 if module.params['state'] not in ['absent', 'locked', 'unlocked'] \
                 else mf.success_response(response)
             result['changed'] = success if not result['changed'] else False

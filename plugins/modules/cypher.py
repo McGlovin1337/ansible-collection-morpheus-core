@@ -9,12 +9,12 @@ short_description: Manage items stored in Cypher
 description:
     - Create and Delete items stored in Cypher.
 version_added: 0.7.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     state:
         description:
             - State of the stored item.
-        type: string
+        type: str
         choices:
             - absent
             - present
@@ -22,12 +22,12 @@ options:
     cypher_path:
         description:
             - Specify a full Cypher mount and key path.
-        type: string
+        type: str
     mount:
         description:
             - Specify the Cypher mount point.
             - Mutually exclusive with O(cypher_path).
-        type: string
+        type: str
         choices:
             - key
             - password
@@ -39,7 +39,7 @@ options:
             - Specify the Key Name.
             - Required when O(mount) is specified.
             - Mutually exclusive with O(cypher_path).
-        type: string
+        type: str
     length:
         description:
             - Required if O(mount) is either V(key) or V(password)
@@ -51,11 +51,11 @@ options:
         description:
             - Specify the data to be stored when O(mount) is either V(secret) or V(tfvars).
             - Required when O(mount) is either V(secret) or V(tfvars).
-        type: string
+        type: str
     ttl:
         description:
             - Specify the lease duration either in seconds or human readable format, e.g 15m, 8h, 7d.
-        type: string
+        type: str
         default: '0'
         aliases:
             - lease_duration
@@ -67,6 +67,9 @@ attributes:
         support: none
     diff_mode:
         support: none
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -100,6 +103,7 @@ RETURN = r'''
 cypher:
     description:
         - Details of the Cypher item.
+    type: dict
     returned: always
     sample:
         "cypher": {
@@ -213,7 +217,7 @@ def run_module():
         'cypher_path': {'type': 'str'},
         'mount': {'type': 'str', 'choices': ['key', 'password', 'secret', 'tfvars', 'uuid']},
         'name': {'type': 'str'},
-        'length': {'type': 'str'},
+        'length': {'type': 'int'},
         'value': {'type': 'str', 'no_log': True},
         'ttl': {'type': 'str', 'default': '0', 'aliases': ['lease_duration', 'duration']}
     }

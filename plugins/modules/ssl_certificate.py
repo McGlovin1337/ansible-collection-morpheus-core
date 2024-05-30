@@ -9,7 +9,7 @@ short_description: Manage SSL Certificates
 description:
     - Create, Update or Delete SSL Certificates.
 version_added: 0.6.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     state:
         description:
@@ -18,7 +18,7 @@ options:
         choices:
             - absent
             - present
-        type: string
+        type: str
     id:
         description:
             - Specify the Id of a SSL Certificate to Update or Remove.
@@ -26,11 +26,11 @@ options:
     name:
         description:
             - Name of the SSL Certificate.
-        type: string
+        type: str
     domain_name:
         description:
             - The Domain Name this SSL Certificate is responsible for.
-        type: string
+        type: str
     wildcard:
         description:
             - Is this a wildcard certificate.
@@ -38,11 +38,11 @@ options:
     certificate:
         description:
             - The SSL Certificate contents.
-        type: string
+        type: str
     key:
         description:
             - The Private Key contents.
-        type: string
+        type: str
 extends_documentation_fragment:
     - action_common_attributes
 attributes:
@@ -50,6 +50,9 @@ attributes:
         support: full
     diff_mode:
         support: full
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -77,6 +80,7 @@ RETURN = r'''
 certificate:
     description:
         - SSL Certificate Details.
+    type: dict
     returned: always
     sample:
         "certificate": {
@@ -146,7 +150,7 @@ def create_update_cert(module: AnsibleModule, morpheus_api: MorpheusApi) -> dict
     action = {
         0: partial(morpheus_api.common_create, path=ApiPath.SSL_CERTIFICATES_PATH, api_params=api_params),
         1: partial(morpheus_api.common_set, path=ApiPath.SSL_CERTIFICATES_PATH, item_id=api_params.pop('id'), api_params=api_params),
-        2: partial(parse_check_mode, state=module.params['state'], api_params=api_params, cert=cert)
+        2: partial(parse_check_mode, state=module.params['state'], api_params=api_params, existing_cert=cert)
     }.get('id' in cert if not module.check_mode else 2)
 
     action_result = action()
@@ -213,20 +217,22 @@ def module_to_api_params(module_params: dict) -> dict:
     return api_params
 
 
-def parse_check_mode(state: str, api_params: dict = None, cert: dict = None) -> dict:
+def parse_check_mode(state: str, api_params: dict = None, existing_cert: dict = None) -> dict:
     if state == 'absent':
         return {'success': True, 'msg': ''}
 
-    if 'id' not in cert:
-        cert = MOCK_SSL_CERT
+    updated_cert = existing_cert.copy()
+
+    if 'id' not in updated_cert:
+        updated_cert = MOCK_SSL_CERT
 
     api_params = mf.dict_keys_to_camel_case(api_params)
 
     for k, v in api_params.items():
-        if k in cert:
-            cert[k] = v
+        if k in updated_cert and v is not None:
+            updated_cert[k] = v
 
-    return cert
+    return updated_cert
 
 
 def remove_cert(module: AnsibleModule, morpheus_api: MorpheusApi) -> dict:
@@ -270,7 +276,7 @@ def run_module():
         'domain_name': {'type': 'str'},
         'wildcard': {'type': 'bool'},
         'certificate': {'type': 'str'},
-        'key': {'type': 'str', 'no_log': 'true'}
+        'key': {'type': 'str', 'no_log': True}
     }
 
     result = {

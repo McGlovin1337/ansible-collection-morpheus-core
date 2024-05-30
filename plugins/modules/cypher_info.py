@@ -9,12 +9,12 @@ short_description: Return Cypher Information
 description:
     - Returns items stored in Cypher.
 version_added: 0.7.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     cypher_path:
         description:
             - Filter Cypher items by path.
-        type: string
+        type: str
     regex_match:
         description:
             - Specify to treat O(cypher_path) as regex.
@@ -25,6 +25,17 @@ options:
             - Specify to decrypt matching Cypher items.
             - Requires O(cypher_path) to be specified, cannot be used to decrypt all items when no parameters are specified.
         type: bool
+extends_documentation_fragment:
+    - action_common_attributes
+attributes:
+    check_mode:
+        support: N/A
+        details: Not Required, Module does not make changes.
+    diff_mode:
+        support: N/A
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -52,6 +63,7 @@ RETURN = r'''
 cyphers:
     description:
         - List of items stored in Cypher.
+    type: list
     returned: always
     sample:
         "cyphers": [
@@ -128,7 +140,7 @@ def run_module():
     module = AnsibleModule(
         argument_spec=argument_spec,
         required_by=required_by,
-        supports_check_mode=False
+        supports_check_mode=True
     )
 
     connection = Connection(module._socket_path)

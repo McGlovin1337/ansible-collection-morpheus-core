@@ -9,7 +9,7 @@ short_description: Gather Key Pair Information
 description:
     - Gathers Information of Key Pairs.
 version_added: 0.6.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     has_private_key:
         description:
@@ -17,6 +17,16 @@ options:
         type: bool
 extends_documentation_fragment:
     - morpheus.core.generic_name_filter
+    - action_common_attributes
+attributes:
+    check_mode:
+        support: N/A
+        details: Not Required, Module does not make changes.
+    diff_mode:
+        support: N/A
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -38,6 +48,7 @@ RETURN = r'''
 key_pairs:
     description:
         - List of Key Pairs.
+    type: list
     returned: always
     sample:
         "key_pairs": [

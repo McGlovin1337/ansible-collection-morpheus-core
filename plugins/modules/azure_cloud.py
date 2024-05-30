@@ -9,32 +9,32 @@ short_description: Manage an Azure Cloud
 description:
     - Manage Azure Clouds.
 version_added: 0.7.0
-author: James Riach
+author: James Riach (@McGlovin1337)
 options:
     subscriber_id:
         description:
             - Azure Subscription ID.
-        type: string
+        type: str
         aliases:
             - subscription_id
     azure_tenant_id:
         description:
             - Azure Tenant ID.
-        type: string
+        type: str
     client_id:
         description:
             - Azure Client ID.
-        type: string
+        type: str
     client_secret:
         description:
             - Azure Client Secret.
-        type: string
+        type: str
     resource_group:
         description:
             - Azure Resource Group name.
             - Leaving this blank for a new integration scopes the integration to all Resource Groups.
             - Specify V(all) if wanting to change an existing integration to scope to all Resource Groups.
-        type: string
+        type: str
     cloud_type:
         description:
             - Azure Cloud type.
@@ -43,13 +43,13 @@ options:
             - usgov
             - german
             - china
-        type: string
+        type: str
     region_code:
         description:
             - Scoped region of the Cloud integration.
             - Leaving this blank for a new integration scopes the integration to all regions.
             - Specify V(all) if wanting to change an existing integrations scope to all regions.
-        type: string
+        type: str
         aliases:
             - region
     account_type:
@@ -59,7 +59,7 @@ options:
             - csp
             - ea
             - standard
-        type: string
+        type: str
     rpc_mode:
         description:
             - Cloud workload interaction method.
@@ -68,7 +68,7 @@ options:
         choices:
             - guestexec
             - rpc
-        type: string
+        type: str
     import_existing:
         description:
             - Inventory Cloud and Import existing Virtual Machines.
@@ -83,19 +83,19 @@ options:
             - azure_plan
             - csp
             - standard
-        type: string
+        type: str
     csp_tenant_id:
         description:
             - The CSP Tenant ID.
-        type: string
+        type: str
     csp_client_id:
         description:
             - The CSP Client ID.
-        type: string
+        type: str
     csp_client_secret:
         description:
             - The CSP Client Secret.
-        type: string
+        type: str
 extends_documentation_fragment:
     - action_common_attributes
     - morpheus.core.cloud_options_common
@@ -104,6 +104,9 @@ attributes:
         support: full
     diff_mode:
         support: full
+    platform:
+        platforms:
+            - httpapi
 '''
 
 EXAMPLES = r'''
@@ -144,6 +147,7 @@ RETURN = r'''
 cloud:
     description:
         - Information related to specified cloud.
+    type: dict
     returned: always
     sample:
         "cloud": {
@@ -341,8 +345,8 @@ def run_module():
 
     required_if = [
         ('state', 'absent', ('id', 'name'), True),
-        ('id', None, ('name')),
-        ('name', None, ('id'))
+        ('id', None, ('name',)),
+        ('name', None, ('id',))
     ]
 
     module = AnsibleModule(
