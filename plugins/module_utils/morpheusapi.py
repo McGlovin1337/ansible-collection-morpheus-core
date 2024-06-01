@@ -23,6 +23,16 @@ class ApiPath(Enum):
         'path': '/api/appliance-settings',
         'dict': 'applianceSettings'
     }
+    APPS_PATH = {
+        'path': '/api/apps',
+        'dict': 'app',
+        'list': 'apps'
+    }
+    BLUEPRINTS_PATH = {
+        'path': '/api/blueprints',
+        'dict': 'blueprint',
+        'list': 'blueprints'
+    }
     CLOUDS = {
         'path': '/api/zones',
         'dict': 'zone',
@@ -43,6 +53,11 @@ class ApiPath(Enum):
         'dict': 'cypher',
         'list': 'cyphers'
     }
+    ENVIRONMENTS_PATH = {
+        'path': '/api/environments',
+        'dict': 'environment',
+        'list': 'environments'
+    }
     GROUPS_PATH = {
         'path': '/api/groups',
         'dict': 'group',
@@ -52,10 +67,20 @@ class ApiPath(Enum):
         'path': '/api/health',
         'dict': 'health'
     }
+    HOSTS_PATH = {
+        'path': '/api/servers',
+        'dict': 'server',
+        'list': 'servers'
+    }
     INSTANCES_PATH = {
         'path': '/api/instances',
         'dict': 'instance',
         'list': 'instances'
+    }
+    INSTANCE_TYPES_PATH = {
+        'path': '/api/library/instance-types',
+        'dict': 'instanceType',
+        'list': 'instanceTypes'
     }
     INTEGRATIONS_PATH = {
         'path': '/api/integrations',
@@ -67,6 +92,11 @@ class ApiPath(Enum):
         'dict': 'keyPair',
         'list': 'keyPairs'
     }
+    LAYOUTS_PATH = {
+        'path': '/api/library/layouts',
+        'dict': 'instanceTypeLayout',
+        'list': 'instanceTypeLayouts'
+    }
     LICENSE_PATH = {
         'path': '/api/license',
         'dict': 'license'
@@ -74,10 +104,39 @@ class ApiPath(Enum):
     MAINTENANCE_MODE_PATH = {
         'path': '/api/appliance-settings/maintenance',
     }
+    NETWORKS_PATH = {
+        'path': '/api/networks',
+        'dict': 'network',
+        'list': 'networks'
+    }
+    NETWORK_GROUPS_PATH = {
+        'path': '/api/networks/groups',
+        'dict': 'networkGroup',
+        'list': 'networkGroups'
+    }
+    NODE_TYPES_PATH = {
+        'path': '/api/library/container-types',
+        'dict': 'containerType',
+        'list': 'containerTypes'
+    }
+    PLUGINS_PATH = {
+        'path': '/api/plugins',
+        'dict': 'plugin',
+        'list': 'plugins'
+    }
+    POLICIES_PATH = {
+        'path': '/api/policies',
+        'dict': 'policy',
+        'list': 'policies'
+    }
     ROLES_PATH = {
         'path': '/api/roles',
         'dict': 'role',
         'list': 'roles'
+    }
+    SEARCH_PATH = {
+        'path': '/api/search',
+        'list': 'hits'
     }
     SNAPSHOTS_PATH = {
         'path': '/api/snapshots',
@@ -89,6 +148,11 @@ class ApiPath(Enum):
         'dict': 'certificate',
         'list': 'certificates'
     }
+    TASKS_PATH = {
+        'path': '/api/tasks',
+        'dict': 'task',
+        'list': 'tasks'
+    }
     TENANTS_PATH = {
         'path': '/api/accounts',
         'dict': 'account',
@@ -98,6 +162,11 @@ class ApiPath(Enum):
         'path': '/api/virtual-images',
         'dict': 'virtualImage',
         'list': 'virtualImages'
+    }
+    WORKFLOWS_PATH = {
+        'path': '/api/task-sets',
+        'dict': 'taskSet',
+        'list': 'taskSets'
     }
 
 
