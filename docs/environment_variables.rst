@@ -12,21 +12,28 @@ Index of all Collection Environment Variables
 The following index documents all environment variables declared by plugins in collections.
 Environment variables used by the ansible-core configuration are documented in :ref:`ansible_configuration_settings`.
 
+.. envvar:: ANSIBLE_MORPHEUS_HOST
+
+    The Morpheus Hostname or IP Address to query.
+
+    *Used by:*
+    :ansplugin:`morpheus.core.search lookup plugin <morpheus.core.search#lookup>`
 .. envvar:: ANSIBLE_MORPHEUS_PASSWORD
 
-    Password associated with the specified Username.
+    The Password for the \ :ansopt:`morpheus\_user`\  to connect to the Morpheus Appliance.
 
     *Used by:*
-    :ansplugin:`morpheus.core.morpheus httpapi plugin <morpheus.core.morpheus#httpapi>`
+    :ansplugin:`morpheus.core.search lookup plugin <morpheus.core.search#lookup>`
 .. envvar:: ANSIBLE_MORPHEUS_TOKEN
 
-    Specify an API token instead of \ :ansopt:`morpheus\_user`\  and \ :ansopt:`morpheus\_password`\ .
+    See the documentations for the options where this environment variable is used.
 
     *Used by:*
-    :ansplugin:`morpheus.core.morpheus httpapi plugin <morpheus.core.morpheus#httpapi>`
+    :ansplugin:`morpheus.core.morpheus httpapi plugin <morpheus.core.morpheus#httpapi>`,
+    :ansplugin:`morpheus.core.search lookup plugin <morpheus.core.search#lookup>`
 .. envvar:: ANSIBLE_MORPHEUS_USER
 
-    A Morpheus Username to Authenticate as.
+    The Username to connect to the Morpheus Appliance.
 
     *Used by:*
-    :ansplugin:`morpheus.core.morpheus httpapi plugin <morpheus.core.morpheus#httpapi>`
+    :ansplugin:`morpheus.core.search lookup plugin <morpheus.core.search#lookup>`
