@@ -12,7 +12,7 @@ version_added: "0.3.0"
 options:
     morpheus_api_token:
         description:
-            - Specify an API token instead of O(morpheus_user) and O(morpheus_password).
+            - Specify an API token instead of C(ansible_user) and C(ansible_password).
         type: str
         env:
             - name: ANSIBLE_MORPHEUS_TOKEN
@@ -67,7 +67,7 @@ class HttpApi(HttpApiBase):
         return urllib.parse.urlunparse(url_parts)
 
     def _test_connection(self):
-        _ = self.send_request(path=WHOAMI_PATH)
+        self.send_request(path=WHOAMI_PATH)
 
     def handle_httperror(self, exc):
         # Handle 5xx errors

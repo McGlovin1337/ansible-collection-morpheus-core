@@ -25,6 +25,7 @@ plugins/module_utils/facts/appliance_rabbitmq.py import-3.8 # ignore circular im
 plugins/module_utils/facts/appliance_rabbitmq.py import-3.9 # ignore circular import error
 plugins/module_utils/facts/appliance_rabbitmq.py import-3.10 # ignore circular import error
 plugins/module_utils/facts/appliance_rabbitmq.py import-3.11 # ignore circular import error
+plugins/module_utils/facts/appliance_rabbitmq.py import-3.12 # ignore circular import error
 plugins/module_utils/facts/appliance_settings.py import-3.6 # ignore circular import error
 plugins/module_utils/facts/appliance_settings.py import-3.7 # ignore circular import error
 plugins/module_utils/facts/appliance_settings.py import-3.8 # ignore circular import error
@@ -55,6 +56,7 @@ plugins/module_utils/morpheusapi.py import-3.11 # ignore circular import error
 plugins/module_utils/morpheusapi.py import-3.12 # ignore circular import error
 plugins/httpapi/morpheus.py validate-modules:missing-gplv3-license
 plugins/inventory/morpheus_inventory.py validate-modules:missing-gplv3-license
+plugins/lookup/search.py validate-modules:missing-gplv3-license
 plugins/modules/appliance_facts.py validate-modules:missing-gplv3-license
 plugins/modules/appliance_maintenance_mode.py validate-modules:missing-gplv3-license
 plugins/modules/appliance_settings.py validate-modules:missing-gplv3-license
