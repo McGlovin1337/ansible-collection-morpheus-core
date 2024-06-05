@@ -5,6 +5,6 @@ ansible_network_os: morpheus.core.morpheus
 ansible_httpapi_use_ssl: true
 
 ansible_host:
-ansible_morpheus_user:
-ansible_morpheus_password:
+ansible_user:
+ansible_password:
 ansible_morpheus_token:

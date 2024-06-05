@@ -138,3 +138,15 @@ Inventory Plugins
     morpheus_inventory_inventory
 
 
+Lookup Plugins
+~~~~~~~~~~~~~~
+
+* :ansplugin:`search lookup <morpheus.core.search#lookup>` -- Lookup various Morpheus items
+
+.. toctree::
+    :maxdepth: 1
+    :hidden:
+
+    search_lookup
+
+

@@ -109,7 +109,7 @@ Parameters
 
         <div class="ansible-option-cell">
 
-      Specify an API token instead of \ :ansopt:`morpheus.core.morpheus#httpapi:morpheus\_user`\  and \ :ansopt:`morpheus.core.morpheus#httpapi:morpheus\_password`\ .
+      Specify an API token instead of \ :literal:`ansible\_user`\  and \ :literal:`ansible\_password`\ .
 
 
       .. rst-class:: ansible-option-line
@@ -119,98 +119,6 @@ Parameters
       - Environment variable: :envvar:`ANSIBLE\_MORPHEUS\_TOKEN`
 
       - Variable: ansible\_morpheus\_token
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-morpheus_password"></div>
-
-      .. _ansible_collections.morpheus.core.morpheus_httpapi__parameter-morpheus_password:
-
-      .. rst-class:: ansible-option-title
-
-      **morpheus_password**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-morpheus_password" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      Password associated with the specified Username.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-configuration:`Configuration:`
-
-      - Environment variable: :envvar:`ANSIBLE\_MORPHEUS\_PASSWORD`
-
-      - Variable: ansible\_morpheus\_password
-
-
-      .. raw:: html
-
-        </div>
-
-  * - .. raw:: html
-
-        <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-morpheus_user"></div>
-
-      .. _ansible_collections.morpheus.core.morpheus_httpapi__parameter-morpheus_user:
-
-      .. rst-class:: ansible-option-title
-
-      **morpheus_user**
-
-      .. raw:: html
-
-        <a class="ansibleOptionLink" href="#parameter-morpheus_user" title="Permalink to this option"></a>
-
-      .. ansible-option-type-line::
-
-        :ansible-option-type:`string`
-
-
-
-
-      .. raw:: html
-
-        </div>
-
-    - .. raw:: html
-
-        <div class="ansible-option-cell">
-
-      A Morpheus Username to Authenticate as.
-
-
-      .. rst-class:: ansible-option-line
-
-      :ansible-option-configuration:`Configuration:`
-
-      - Environment variable: :envvar:`ANSIBLE\_MORPHEUS\_USER`
-
-      - Variable: ansible\_morpheus\_user
 
 
       .. raw:: html

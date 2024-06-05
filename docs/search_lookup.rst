@@ -17,8 +17,8 @@
 
 .. Title
 
-morpheus.core.search lookup -- Perform a Global Search of Morpheus
-++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+morpheus.core.search lookup -- Lookup various Morpheus items
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
 .. Collection note
 
@@ -50,7 +50,7 @@ Synopsis
 
 .. Description
 
-- Perform a general purpose global search of a Morpheus Appliance.
+- Search for various Morpheus items.
 
 
 .. Aliases
@@ -324,17 +324,17 @@ examples: ``lookup('morpheus.core.search', key1=value1, key2=value2, ...)`` and 
   * - .. raw:: html
 
         <div class="ansible-option-cell">
-        <div class="ansibleOptionAnchor" id="parameter-search_type"></div>
+        <div class="ansibleOptionAnchor" id="parameter-search_item"></div>
 
-      .. _ansible_collections.morpheus.core.search_lookup__parameter-search_type:
+      .. _ansible_collections.morpheus.core.search_lookup__parameter-search_item:
 
       .. rst-class:: ansible-option-title
 
-      **search_type**
+      **search_item**
 
       .. raw:: html
 
-        <a class="ansibleOptionLink" href="#parameter-search_type" title="Permalink to this option"></a>
+        <a class="ansibleOptionLink" href="#parameter-search_item" title="Permalink to this option"></a>
 
       .. ansible-option-type-line::
 
@@ -353,19 +353,35 @@ examples: ``lookup('morpheus.core.search', key1=value1, key2=value2, ...)`` and 
 
       The item type to search/lookup.
 
+      By default this is a general global search of the Morpheus Appliance.
+
 
       .. rst-class:: ansible-option-line
 
       :ansible-option-choices:`Choices:`
 
+      - :ansible-option-choices-entry:`"app"`
+      - :ansible-option-choices-entry:`"blueprint"`
       - :ansible-option-choices-entry:`"cloud"`
+      - :ansible-option-choices-entry:`"cloud\_type"`
+      - :ansible-option-choices-entry:`"environment"`
       - :ansible-option-choices-entry-default:`"global"` :ansible-option-choices-default-mark:`← (default)`
       - :ansible-option-choices-entry:`"group"`
+      - :ansible-option-choices-entry:`"host"`
       - :ansible-option-choices-entry:`"instance"`
+      - :ansible-option-choices-entry:`"instance\_type"`
       - :ansible-option-choices-entry:`"integration"`
+      - :ansible-option-choices-entry:`"layout"`
+      - :ansible-option-choices-entry:`"network"`
+      - :ansible-option-choices-entry:`"network\_group"`
+      - :ansible-option-choices-entry:`"node\_type"`
+      - :ansible-option-choices-entry:`"plugin"`
+      - :ansible-option-choices-entry:`"policy"`
       - :ansible-option-choices-entry:`"role"`
+      - :ansible-option-choices-entry:`"task"`
       - :ansible-option-choices-entry:`"tenant"`
       - :ansible-option-choices-entry:`"virtual\_image"`
+      - :ansible-option-choices-entry:`"workflow"`
 
 
       .. raw:: html
@@ -494,6 +510,10 @@ Examples
     - name: Search current Morpheus Appliance when used with httpapi plugin
       ansible.builtin.debug:
         msg: "{{ q('morpheus.core.search', 'instance', morpheus_instance=inventory_hostname) }}"
+
+    - name: Search for Instances with "Apache" in their name
+      ansible.builtin.debug:
+        msg: "{{ q('morpheus.core.search', 'Apache', search_type='instance', morpheus_instance=inventory_hostname) }}"
 
 
 
