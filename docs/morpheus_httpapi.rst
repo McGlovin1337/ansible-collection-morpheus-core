@@ -109,7 +109,7 @@ Parameters
 
         <div class="ansible-option-cell">
 
-      Specify an API token instead of \ :ansopt:`morpheus.core.morpheus#httpapi:morpheus\_user`\  and \ :ansopt:`morpheus.core.morpheus#httpapi:morpheus\_password`\ .
+      Specify an API token instead of \ :literal:`ansible\_user`\  and \ :literal:`ansible\_password`\ .
 
 
       .. rst-class:: ansible-option-line
