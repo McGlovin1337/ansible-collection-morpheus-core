@@ -127,6 +127,7 @@ snapshot_results:
 from copy import deepcopy
 from functools import partial
 from time import sleep
+from typing import Union, List
 from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
 try:
@@ -139,7 +140,7 @@ except ModuleNotFoundError:
     from ansible_collections.morpheus.core.plugins.module_utils.morpheus_classes import InstanceSnapshots, SnapshotAction
 
 
-def exec_snapshot_actions(actions: list[SnapshotAction]) -> list[dict]:
+def exec_snapshot_actions(actions: Union[List[SnapshotAction]]) -> Union[List[dict]]:
     """Execute the Actions from a List of SnapshotAction objects
 
     Args:
@@ -180,7 +181,7 @@ def parse_check_mode(module_params: dict, instance_snapshot: InstanceSnapshots,
         return instance_snapshot
 
 
-def snapshot_create(module_params: dict, morpheus_api: MorpheusApi, instances: list) -> list[SnapshotAction]:
+def snapshot_create(module_params: dict, morpheus_api: MorpheusApi, instances: list) -> Union[List[SnapshotAction]]:
     return [
         SnapshotAction(
             morpheus_api=morpheus_api,
@@ -194,7 +195,7 @@ def snapshot_create(module_params: dict, morpheus_api: MorpheusApi, instances: l
     ]
 
 
-def snapshot_remove(module_params: dict, morpheus_api: MorpheusApi, instance_snapshots: InstanceSnapshots = None) -> list[SnapshotAction]:
+def snapshot_remove(module_params: dict, morpheus_api: MorpheusApi, instance_snapshots: InstanceSnapshots = None) -> Union[List[SnapshotAction]]:
     if module_params['snapshot_id'] is not None:
         return [
             SnapshotAction(
@@ -222,7 +223,7 @@ def snapshot_remove(module_params: dict, morpheus_api: MorpheusApi, instance_sna
         ]
 
 
-def snapshot_remove_all(morpheus_api: MorpheusApi, instances: list) -> list[SnapshotAction]:
+def snapshot_remove_all(morpheus_api: MorpheusApi, instances: list) -> Union[List[SnapshotAction]]:
     return [
         SnapshotAction(
             morpheus_api=morpheus_api,
@@ -234,7 +235,7 @@ def snapshot_remove_all(morpheus_api: MorpheusApi, instances: list) -> list[Snap
     ]
 
 
-def snapshot_revert(module_params: dict, morpheus_api: MorpheusApi, instance_snapshots: InstanceSnapshots) -> list[SnapshotAction]:
+def snapshot_revert(module_params: dict, morpheus_api: MorpheusApi, instance_snapshots: InstanceSnapshots) -> Union[List[SnapshotAction]]:
     if module_params['snapshot_id'] is not None:
         actions = [
             SnapshotAction(

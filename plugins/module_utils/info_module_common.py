@@ -2,6 +2,7 @@ from __future__ import (absolute_import, division, print_function)
 __metaclass__ = type
 
 import re
+from typing import Union, List
 from ansible.module_utils.basic import AnsibleModule
 try:
     import morpheus_funcs as mf
@@ -21,7 +22,7 @@ COMMON_MUTUALLY_EXCLUSIVE = [
 ]
 
 
-def param_filter(module: AnsibleModule, remove_params: list[str] = None) -> dict:
+def param_filter(module: AnsibleModule, remove_params: Union[List[str]] = None) -> dict:
     """Removes and converts common module parameters to usable API Parameters.
 
     Args:
@@ -56,7 +57,7 @@ def param_filter(module: AnsibleModule, remove_params: list[str] = None) -> dict
     return api_params
 
 
-def response_filter(module: AnsibleModule, response: dict | list, filter_items: dict = None) -> list[dict]:
+def response_filter(module: AnsibleModule, response: Union[dict, list], filter_items: dict = None) -> Union[List[dict]]:
     """Filters a response based on the supplied dictionary keys.
 
     Args:

@@ -12,6 +12,7 @@ author: James Riach
 
 import urllib.parse
 from enum import Enum
+from typing import Union, List
 try:
     import morpheus_funcs as mf
 except ModuleNotFoundError:
@@ -174,7 +175,7 @@ class MorpheusApi():
     def __init__(self, connection) -> None:
         self.connection = connection
 
-    def _build_url(self, path: str, params: list[tuple] = None):
+    def _build_url(self, path: str, params: Union[List[tuple]] = None):
         url_parts = list(urllib.parse.urlparse(path))
         if params is not None:
             url_parts[4] = urllib.parse.urlencode(params)
@@ -266,7 +267,7 @@ class MorpheusApi():
         return self._return_reponse_key(response, path.value['dict']) \
             if not raw else self._return_reponse_key(response, '')
 
-    def common_delete(self, path: ApiPath, item_id: int | str, api_params: dict = None):
+    def common_delete(self, path: ApiPath, item_id: Union[int, str], api_params: dict = None):
         path = '{0}/{1}'.format(path.value['path'], item_id)
 
         if api_params is not None:
