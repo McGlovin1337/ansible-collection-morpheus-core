@@ -134,9 +134,11 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
 try:
     import module_utils.morpheus_funcs as mf
+    from module_utils.instance_module_common import instance_filter
     from module_utils.morpheusapi import ApiPath, MorpheusApi
 except ModuleNotFoundError:
     import ansible_collections.morpheus.core.plugins.module_utils.morpheus_funcs as mf
+    from ansible_collections.morpheus.core.plugins.module_utils.instance_module_common import instance_filter
     from ansible_collections.morpheus.core.plugins.module_utils.morpheusapi import ApiPath, MorpheusApi
 
 
@@ -234,7 +236,7 @@ def run_module():
     connection = Connection(module._socket_path)
     morpheus_api = MorpheusApi(connection)
 
-    instances = mf.instance_filter(morpheus_api, module.params, INSTANCE_INFO_KEYS)
+    instances = instance_filter(morpheus_api, module.params, INSTANCE_INFO_KEYS)
 
     action_func = {
         'absent': partial(morpheus_api.common_delete, path=ApiPath.INSTANCES_PATH, api_params=module_to_api_params(module.params)),

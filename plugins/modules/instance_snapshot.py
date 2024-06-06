@@ -132,10 +132,12 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
 try:
     import module_utils.morpheus_funcs as mf
+    from module_utils.instance_module_common import instance_filter
     from module_utils.morpheusapi import MorpheusApi
     from module_utils._morpheus_classes import InstanceSnapshots, SnapshotAction
 except ModuleNotFoundError:
     import ansible_collections.morpheus.core.plugins.module_utils.morpheus_funcs as mf
+    from ansible_collections.morpheus.core.plugins.module_utils.instance_module_common import instance_filter
     from ansible_collections.morpheus.core.plugins.module_utils.morpheusapi import MorpheusApi
     from ansible_collections.morpheus.core.plugins.module_utils._morpheus_classes import InstanceSnapshots, SnapshotAction
 
@@ -335,7 +337,7 @@ def run_module():
     instances = None
     instance_snapshots = None
     if module.params['id'] is not None or module.params['name'] is not None:
-        instances = mf.instance_filter(morpheus_api, module.params)
+        instances = instance_filter(morpheus_api, module.params)
         sort = module.params['snapshot_age'] == 'latest'
         instance_snapshots = [
             InstanceSnapshots(instance['name'],
