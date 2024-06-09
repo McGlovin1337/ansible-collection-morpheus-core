@@ -95,13 +95,13 @@ from ansible.module_utils.connection import Connection
 try:
     import module_utils._info_module_common as info_module
     import module_utils.morpheus_funcs as mf
-    from module_utils.instance_module_common import instance_filter
+    from module_utils._instance_module_common import instance_filter
     from module_utils.morpheusapi import MorpheusApi
     from module_utils._morpheus_classes import InstanceSnapshots
 except ModuleNotFoundError:
     import ansible_collections.morpheus.core.plugins.module_utils._info_module_common as info_module
     import ansible_collections.morpheus.core.plugins.module_utils.morpheus_funcs as mf
-    from ansible_collections.morpheus.core.plugins.module_utils.instance_module_common import instance_filter
+    from ansible_collections.morpheus.core.plugins.module_utils._instance_module_common import instance_filter
     from ansible_collections.morpheus.core.plugins.module_utils.morpheusapi import MorpheusApi
     from ansible_collections.morpheus.core.plugins.module_utils._morpheus_classes import InstanceSnapshots
 
