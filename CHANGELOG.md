@@ -4,6 +4,7 @@
 - Added `morpheus.core.search` lookup plugin
 - **BREAKING CHANGE** - Improved `httpapi` plugin authentication. Removed the `morpheus_user` and `morpheus_password` options. Use the standard `ansible_user` and `ansible_password` options instead.
 - Improved support for Python from 3.7+
+- Mark some module_utils as private use by the collection.
 
 ## v0.7.1
 - Added Integration Tests for numerous modules

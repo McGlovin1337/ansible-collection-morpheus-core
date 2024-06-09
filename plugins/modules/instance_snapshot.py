@@ -133,11 +133,11 @@ from ansible.module_utils.connection import Connection
 try:
     import module_utils.morpheus_funcs as mf
     from module_utils.morpheusapi import MorpheusApi
-    from module_utils.morpheus_classes import InstanceSnapshots, SnapshotAction
+    from module_utils._morpheus_classes import InstanceSnapshots, SnapshotAction
 except ModuleNotFoundError:
     import ansible_collections.morpheus.core.plugins.module_utils.morpheus_funcs as mf
     from ansible_collections.morpheus.core.plugins.module_utils.morpheusapi import MorpheusApi
-    from ansible_collections.morpheus.core.plugins.module_utils.morpheus_classes import InstanceSnapshots, SnapshotAction
+    from ansible_collections.morpheus.core.plugins.module_utils._morpheus_classes import InstanceSnapshots, SnapshotAction
 
 
 def exec_snapshot_actions(actions: Union[List[SnapshotAction]]) -> Union[List[dict]]:

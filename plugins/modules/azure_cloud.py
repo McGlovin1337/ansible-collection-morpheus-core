@@ -254,9 +254,9 @@ cloud:
 
 from ansible.module_utils.basic import AnsibleModule
 try:
-    import module_utils.cloud_module_common as cloud
+    import module_utils._cloud_module_common as cloud
 except ModuleNotFoundError:
-    import ansible_collections.morpheus.core.plugins.module_utils.cloud_module_common as cloud
+    import ansible_collections.morpheus.core.plugins.module_utils._cloud_module_common as cloud
 
 
 AZURE_CLOUD_OPTIONS = {

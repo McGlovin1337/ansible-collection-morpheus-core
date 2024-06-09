@@ -286,10 +286,10 @@ cloud:
 
 from ansible.module_utils.basic import AnsibleModule
 try:
-    import module_utils.cloud_module_common as cloud
-    from module_utils.morpheus_const import KEYMAP_OPTIONS
+    import module_utils._cloud_module_common as cloud
+    from plugins.module_utils._morpheus_const import KEYMAP_OPTIONS
 except ModuleNotFoundError:
-    import ansible_collections.morpheus.core.plugins.module_utils.cloud_module_common as cloud
+    import ansible_collections.morpheus.core.plugins.module_utils._cloud_module_common as cloud
     from ansible_collections.morpheus.core.plugins.module_utils.morpheus_const import KEYMAP_OPTIONS
 
 

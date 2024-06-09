@@ -93,15 +93,15 @@ from ansible.module_utils.basic import AnsibleModule
 from ansible.module_utils.connection import Connection
 
 try:
-    import module_utils.info_module_common as info_module
+    import module_utils._info_module_common as info_module
     import module_utils.morpheus_funcs as mf
     from module_utils.morpheusapi import MorpheusApi
-    from module_utils.morpheus_classes import InstanceSnapshots
+    from module_utils._morpheus_classes import InstanceSnapshots
 except ModuleNotFoundError:
-    import ansible_collections.morpheus.core.plugins.module_utils.info_module_common as info_module
+    import ansible_collections.morpheus.core.plugins.module_utils._info_module_common as info_module
     import ansible_collections.morpheus.core.plugins.module_utils.morpheus_funcs as mf
     from ansible_collections.morpheus.core.plugins.module_utils.morpheusapi import MorpheusApi
-    from ansible_collections.morpheus.core.plugins.module_utils.morpheus_classes import InstanceSnapshots
+    from ansible_collections.morpheus.core.plugins.module_utils._morpheus_classes import InstanceSnapshots
 
 
 def run_module():
