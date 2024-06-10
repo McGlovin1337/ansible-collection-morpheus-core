@@ -118,11 +118,11 @@ from ansible.module_utils.connection import Connection
 from functools import partial
 try:
     import module_utils.morpheus_funcs as mf
-    from module_utils.morpheus_const import CURRENCY_OPTIONS
+    from plugins.module_utils._morpheus_const import CURRENCY_OPTIONS
     from module_utils.morpheusapi import ApiPath, MorpheusApi
 except ModuleNotFoundError:
     import ansible_collections.morpheus.core.plugins.module_utils.morpheus_funcs as mf
-    from ansible_collections.morpheus.core.plugins.module_utils.morpheus_const import CURRENCY_OPTIONS
+    from ansible_collections.morpheus.core.plugins.module_utils._morpheus_const import CURRENCY_OPTIONS
     from ansible_collections.morpheus.core.plugins.module_utils.morpheusapi import ApiPath, MorpheusApi
 
 
