@@ -47,6 +47,8 @@ options:
         description:
             - Set the Active state of the Environment.
         type: bool
+extends_documentation_fragment:
+    - action_common_attributes
 attributes:
     check_mode:
         support: full
