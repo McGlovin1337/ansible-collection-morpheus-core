@@ -29,9 +29,35 @@ attributes:
 '''
 
 EXAMPLES = r'''
+- name: Retrieve all Environments
+  morpheus.core.environment_info:
+
+- name: Retrieve dev & test Environments using Regex
+  morpheus.core.environment_info:
+    name: ^(dev|test).*$
+    regex_match: true
 '''
 
 RETURN = r'''
+environments:
+    description:
+        - A List of matching Environments.
+    type: list
+    sample:
+        "environments": [
+            {
+                "account": null,
+                "active": true,
+                "code": "dev",
+                "date_created": "2024-01-01T00:00:01Z",
+                "description": "Development",
+                "id": 1,
+                "last_updated": "2024-01-01T00:00:01Z",
+                "name": "Dev",
+                "sort_order": 1,
+                "visibility": "private"
+            }
+        ]
 '''
 
 from ansible.module_utils.basic import AnsibleModule

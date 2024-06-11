@@ -383,6 +383,13 @@ Examples
 .. code-block:: yaml+jinja
 
     
+    - name: Retrieve all Environments
+      morpheus.core.environment_info:
+
+    - name: Retrieve dev & test Environments using Regex
+      morpheus.core.environment_info:
+        name: ^(dev|test).*$
+        regex_match: true
 
 
 
@@ -391,6 +398,66 @@ Examples
 
 
 .. Return values
+
+Return Values
+-------------
+Common return values are documented :ref:`here <common_return_values>`, the following are the fields unique to this module:
+
+.. tabularcolumns:: \X{1}{3}\X{2}{3}
+
+.. list-table::
+  :width: 100%
+  :widths: auto
+  :header-rows: 1
+  :class: longtable ansible-option-table
+
+  * - Key
+    - Description
+
+  * - .. raw:: html
+
+        <div class="ansible-option-cell">
+        <div class="ansibleOptionAnchor" id="return-environments"></div>
+
+      .. _ansible_collections.morpheus.core.environment_info_module__return-environments:
+
+      .. rst-class:: ansible-option-title
+
+      **environments**
+
+      .. raw:: html
+
+        <a class="ansibleOptionLink" href="#return-environments" title="Permalink to this return value"></a>
+
+      .. ansible-option-type-line::
+
+        :ansible-option-type:`list` / :ansible-option-elements:`elements=string`
+
+      .. raw:: html
+
+        </div>
+
+    - .. raw:: html
+
+        <div class="ansible-option-cell">
+
+      A List of matching Environments.
+
+
+      .. rst-class:: ansible-option-line
+
+      :ansible-option-returned-bold:`Returned:` success
+
+      .. rst-class:: ansible-option-line
+      .. rst-class:: ansible-option-sample
+
+      :ansible-option-sample-bold:`Sample:` :ansible-rv-sample-value:`{"environments": [{"account": null, "active": true, "code": "dev", "date\_created": "2024-01-01T00:00:01Z", "description": "Development", "id": 1, "last\_updated": "2024-01-01T00:00:01Z", "name": "Dev", "sort\_order": 1, "visibility": "private"}]}`
+
+
+      .. raw:: html
+
+        </div>
+
 
 
 ..  Status (Presently only deprecated)
