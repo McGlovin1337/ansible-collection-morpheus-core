@@ -32,6 +32,10 @@ options:
             - Short Code name for the Environment.
             - Note, that this is only applicable when creating a new Environment.
         type: str
+    description:
+        description:
+            - A description of the Environment.
+        type: str
     visibility:
         description:
             - Whether the Environment is Public or Private.
@@ -113,8 +117,8 @@ except ModuleNotFoundError:
 MOCK_ENVIRONMENT = {
     "id": 0,
     "account": {
-      "id": 0,
-      "name": "Known After Create"
+        "id": 0,
+        "name": "Known After Create"
     },
     "code": "Known After Create",
     "name": "Known After Create",
@@ -248,7 +252,8 @@ def parse_check_mode(state: str, api_params: dict, existing_env: dict) -> dict:
         del api_params['code']  # The API Update Method doesn't allow changing code, so we mock that
 
     for k, v in api_params.items():
-        updated_env[k] = v
+        if v is not None:
+            updated_env[k] = v
 
     return updated_env
 
@@ -290,10 +295,15 @@ def run_module():
         'id': {'type': 'int'},
         'name': {'type': 'str'},
         'code': {'type': 'str'},
+        'description': {'type': 'str'},
         'visibility': {'type': 'str', 'choices': ['private', 'public']},
         'sort_order': {'type': 'int'},
         'active': {'type': 'bool'}
     }
+
+    required_if = [
+        ('state', 'absent', ('id', 'name'), True)
+    ]
 
     result = {
         'changed': False,
@@ -302,6 +312,7 @@ def run_module():
 
     module = AnsibleModule(
         argument_spec=argument_spec,
+        required_if=required_if,
         supports_check_mode=True
     )
 

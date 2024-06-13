@@ -1,0 +1,12 @@
+---
+
+- name: Prepare Test Environment
+  morpheus.core.environment:
+    state: present
+    name: Ansible Test Environment
+    code: ansibleTest
+    description: morpheus.core.environment module testing
+    visibility: private
+    sort_order: 10000
+    active: false
+  notify: Remove Test Environment

@@ -1,0 +1,6 @@
+---
+
+- name: Remove Test Environment
+  morpheus.core.environment:
+    state: absent
+    name: Ansible Test Environment
