@@ -290,7 +290,7 @@ try:
     from plugins.module_utils._morpheus_const import KEYMAP_OPTIONS
 except ModuleNotFoundError:
     import ansible_collections.morpheus.core.plugins.module_utils._cloud_module_common as cloud
-    from ansible_collections.morpheus.core.plugins.module_utils.morpheus_const import KEYMAP_OPTIONS
+    from ansible_collections.morpheus.core.plugins.module_utils._morpheus_const import KEYMAP_OPTIONS
 
 
 VCENTER_CLOUD_OPTIONS = {

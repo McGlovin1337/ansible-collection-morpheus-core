@@ -1,0 +1,168 @@
+---
+
+- name: Create Environment with Check Mode
+  morpheus.core.environment:
+    state: present
+    name: Ansible Integration Test Env
+    code: ansible_int_test
+    description: Ansible Integration Test Environment
+    active: false
+    sort_order: 10000
+  check_mode: true
+  register: result
+
+- name: Assert result is changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Query Test Environment
+  morpheus.core.environment_info:
+    code: ansible_int_test
+  register: lookup_result
+
+- name: Assert Environment Not Created
+  ansible.builtin.assert:
+    that:
+      - lookup_result['environments'] | length == 0
+
+- name: Create Environment
+  morpheus.core.environment:
+    state: present
+    name: Ansible Integration Test Env
+    code: ansible_int_test
+    description: Ansible Integration Test Environment
+    active: false
+    sort_order: 10000
+  register: result
+
+- name: Assert result is changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Assert result matches specified parameters
+  ansible.builtin.assert:
+    that:
+      - result['environment']['name'] == 'Ansible Integration Test Env'
+      - result['environment']['code'] == 'ansible_int_test'
+      - result['environment']['description'] == 'Ansible Integration Test Environment'
+      - not result['environment']['active'] | bool
+
+- name: Update Environment without Changes in Check Mode
+  morpheus.core.environment:
+    state: present
+    name: Ansible Integration Test Env
+    code: ansible_int_test
+    description: Ansible Integration Test Environment
+    active: false
+    sort_order: 10000
+  check_mode: true
+  diff: true
+  register: result
+
+- name: Assert result is not changed
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Update Environment with Changes in Check Mode
+  morpheus.core.environment:
+    state: present
+    name: Ansible Integration Test Env
+    description: Ansible Integration Test Environment Updated
+  check_mode: true
+  register: result
+
+- name: Assert result is changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Update Environment with Changes
+  morpheus.core.environment:
+    state: present
+    name: Ansible Integration Test Env
+    description: Ansible Integration Test Environment Updated
+  register: result
+
+- name: Assert result is changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Query Test Environment
+  morpheus.core.environment_info:
+    name: Ansible Integration Test Env
+  register: lookup_result
+
+- name: Assert Change actually made
+  ansible.builtin.assert:
+    that:
+      - lookup_result['environments'][0]['description'] == result['environment']['description']
+
+- name: Rename Environment with Id Parameter
+  morpheus.core.environment:
+    state: present
+    id: "{{ lookup_result['environments'][0]['id'] }}"
+    name: Ansible Integration Test Env Rename
+  register: result
+
+- name: Assert result is changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Query Test Environment
+  morpheus.core.environment_info:
+    name: Ansible Integration Test Env Rename
+  register: lookup_result
+
+- name: Assert Change actually made
+  ansible.builtin.assert:
+    that:
+      - lookup_result['environments'][0]['name'] == 'Ansible Integration Test Env Rename'
+
+- name: Remove Environment in Check Mode
+  morpheus.core.environment:
+    state: absent
+    name: Ansible Integration Test Env Rename
+  check_mode: true
+  register: result
+
+- name: Assert result is changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Query Test Environment
+  morpheus.core.environment_info:
+    name: Ansible Integration Test Env Rename
+  register: lookup_result
+
+- name: Assert Group not Removed
+  ansible.builtin.assert:
+    that:
+      - lookup_result['environments'] | length == 1
+      - lookup_result['environments'][0]['name'] == 'Ansible Integration Test Env Rename'
+
+- name: Remove Group
+  morpheus.core.environment:
+    state: absent
+    name: Ansible Integration Test Env Rename
+  register: result
+
+- name: Assert result is changed
+  ansible.builtin.assert:
+    that:
+      - result is changed
+
+- name: Query Test Environment
+  morpheus.core.environment_info:
+    name: Ansible Integration Test Env Rename
+  register: lookup_result
+
+- name: Assert Environment Removed
+  ansible.builtin.assert:
+    that:
+      - lookup_result['environments'] | length == 0

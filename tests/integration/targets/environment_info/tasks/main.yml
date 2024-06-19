@@ -1,0 +1,42 @@
+---
+
+- name: Fetch all Environments
+  morpheus.core.environment_info:
+  register: result
+
+- name: Assert no change
+  ansible.builtin.assert:
+    that:
+      - result is not changed
+
+- name: Assert 'environments' in results
+  ansible.builtin.assert:
+    that:
+      - "'environment' in result"
+
+- name: Assert 'environments' Key is a List
+  ansible.builtin.assert:
+    that:
+      - result['environments'] is not string
+      - result['environments'] is not mapping
+      - result['environments'] is iterable
+
+- name: Assert Each Return Item is a Dictionary
+  ansible.builtin.assert:
+    that:
+      - result_item is not string
+      - result_item is mapping
+  loop: "{{ result['environments'] }}"
+  loop_control:
+    loop_var: result_item
+
+- name: Fetch Specific Environment
+  morpheus.core.environment_info:
+    name: Ansible Test Environment
+  register: result
+
+- name: Assert Specific Environment Found
+  ansible.builtin.assert:
+    that:
+      - result['environments'] | length == 1
+      - result['environments'][0]['code'] == 'ansibleTest'

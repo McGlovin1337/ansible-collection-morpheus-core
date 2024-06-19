@@ -345,6 +345,8 @@ Individual Module Documentation can be found included with the module and can be
 |[cloud_type_info](docs/cloud_type_info_module.rst)|Retrieve information about Cloud Types|
 |[cypher_info](docs/cypher_info_module.rst)|Retrieve items from Cypher and optionally decrypt|
 |[cypher](docs/cypher_module.rst)|Manage items in Cypher|
+|[environment_into](docs/environment_info_module.rst)|Retrieve information about Environments|
+|[environment](docs/environment_module.rst)|Manage Environments|
 |[group_info](docs/group_info_module.rst)|Retrieve information about Groups|
 |[group](docs/group_module.rst)|Manage Groups|
 |[instance_info](docs/instance_info_module.rst)|Retrieve information about Morpheus Instances|

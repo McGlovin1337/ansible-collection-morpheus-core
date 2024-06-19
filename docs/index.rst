@@ -61,6 +61,8 @@ Modules
 * :ansplugin:`cloud_type_info module <morpheus.core.cloud_type_info#module>` -- Return available Cloud types
 * :ansplugin:`cypher module <morpheus.core.cypher#module>` -- Manage items stored in Cypher
 * :ansplugin:`cypher_info module <morpheus.core.cypher_info#module>` -- Return Cypher Information
+* :ansplugin:`environment module <morpheus.core.environment#module>` -- Manage Environments
+* :ansplugin:`environment_info module <morpheus.core.environment_info#module>` -- Retrieves Environments
 * :ansplugin:`group module <morpheus.core.group#module>` -- Manage Groups
 * :ansplugin:`group_info module <morpheus.core.group_info#module>` -- Retrieves Group Info
 * :ansplugin:`instance module <morpheus.core.instance#module>` -- Basic Management of Morpheus Instances
@@ -94,6 +96,8 @@ Modules
     cloud_type_info_module
     cypher_module
     cypher_info_module
+    environment_module
+    environment_info_module
     group_module
     group_info_module
     instance_module
